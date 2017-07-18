@@ -12,3 +12,7 @@ feel  varchar(30),
 triedThis Boolean,
 primary key(id)
 );
+
+
+-- SEED DATA
+insert into beerTbl(name, color, hoppieness, style, smell, feel, triedthis) VALUES ('Pacific Wonderland Lager', 5, 6, 'lager', 'fruity', 'crisp',false);
