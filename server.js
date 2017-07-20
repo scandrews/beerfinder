@@ -1,13 +1,11 @@
-'use strict';
-
 const express = require('express');
 
 const app = express();
-
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv').load();
+const exphbs = require('express-handlebars');
 
 
 app.get('/', (req, res) => {
@@ -38,3 +36,10 @@ models.sequelize.sync().then(() => {
 }).catch((err) => {
   console.log(err, 'Something went wrong with the Database Update!');
 });
+
+// For Handlebars
+app.set('views', '/app/views');
+app.engine('hbs', exphbs({
+  extname: '.hbs',
+}));
+app.set('view engine', '.hbs');
