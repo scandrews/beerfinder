@@ -1,5 +1,27 @@
-// The server file for week 15 homework - the burger app using sequelize for database access
+// The server file for Project 2 - the beer finder app
+'use strict';
 
+const passport = require('passport');
+const session = require('express-session');
+const env = require('dotenv').load();
+
+
+app.get('/', (req, res) => {
+  res.send('Welcome to Passport with Sequelize');
+});
+
+
+// For Passport
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+// Models  -  from John's passport
+const models = require('./app/models');
+// Requiring our models for syncing - from my stuff
+var db = require("./models");
+
+  
 // Node Package Dependencies
 var bodyParser = require("body-parser");
 var path = require("path");
@@ -26,8 +48,7 @@ app.set("view engine", "handlebars");
 // route for static data/pages
 // app.use(express.static("./public"));
 
-
-// Set up Express for data parsing
+// For BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -49,15 +70,15 @@ app.get("/url", function(req, res){
 	res.sendFile(path.join(__dirname, "./public/images/burger.png"));
 });
 
-
 //------------------
 
-// Requiring our models for syncing
-var db = require("./models");
-
+// This was from John's Passport server file
+// Sync Database
+// models.sequelize.sync().then(() => {
 // Syncing sequelize and start application
 db.sequelize.sync({ force: true }).then(function() {
 	app.listen(PORT, function() {
 		console.log("App listening on PORT " + PORT);
-	});
+	}).catch(function(err){
+    console.log(err, 'Something went wrong with the Database Update!');
 });
