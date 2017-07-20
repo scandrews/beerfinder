@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": "Rambo",
-    "database": "beer_db",
-    "host": "3306",
+    "database": "sequelize_passport",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
