@@ -10,8 +10,8 @@
     "type": "git",
     "url": "git+https://github.com/scandrews/beerfinder.git"
   },
+  "author": "TG",
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/scandrews/beerfinder/issues"
