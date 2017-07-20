@@ -38,4 +38,3 @@ models.sequelize.sync().then(() => {
 }).catch((err) => {
   console.log(err, 'Something went wrong with the Database Update!');
 });
-
