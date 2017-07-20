@@ -11,8 +11,8 @@ smell varchar(30),
 feel  varchar(30),
 triedThis Boolean,
 primary key(id)
-);
 
+);
 
  	--  insert into beerTbl(name, color, hoppieness, style, smell, feel, triedthis) 
  	-- VALUES ('NAME', colorint, ibu, 'type', 'smell', 'feel',false);
