@@ -6,18 +6,8 @@ const session = require('express-session');
 const env = require('dotenv').load();
 
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Passport with Sequelize');
-});
-
-
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
 // Models  -  from John's passport
-const models = require('./app/models');
+const models = require('./models');
 // Requiring our models for syncing - from my stuff
 var db = require("./models");
 
@@ -29,7 +19,7 @@ var methodOverride = require("method-override");
 var express = require("express");
 
 // Set up application dependencies
-var routes = require("./controllers/burgers_controller.js");
+var routes = require("./controllers/beer_controller.js");
 
 // Set up Express
 var app = express();
@@ -39,11 +29,6 @@ var PORT = process.env.PORT || 3000;
 // set up method override
 app.use(methodOverride("_method"));
 
-// set up handlebars
-var exphbs = require("express-handlebars");
-// set up the handlebars engine
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
 
 // route for static data/pages
 // app.use(express.static("./public"));
@@ -54,6 +39,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use("/", routes);
+
+
+// For Passport
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // Static directory
 // app.use(express.static("./public"));
@@ -70,6 +61,13 @@ app.get("/url", function(req, res){
 	res.sendFile(path.join(__dirname, "./public/images/burger.png"));
 });
 
+app.get('/', (req, res) => {
+	console.log("got the initial request in the server");
+	res.sendFile(path.join(__dirname, "./login.html"));
+
+  res.send('Welcome to Passport with Sequelize');
+});
+
 //------------------
 
 // This was from John's Passport server file
@@ -79,6 +77,5 @@ app.get("/url", function(req, res){
 db.sequelize.sync({ force: true }).then(function() {
 	app.listen(PORT, function() {
 		console.log("App listening on PORT " + PORT);
-	}).catch(function(err){
-    console.log(err, 'Something went wrong with the Database Update!');
+	})
 });

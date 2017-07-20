@@ -2,17 +2,35 @@
 var express = require("express");
 // include the data definition from schema.js
 var db = require("../models");
+var path = require("path");
 
 var router = express.Router();
-var currentUserId = 0;
+
+router.get('/', (req, res) => {
+	console.log("got the initial passport request in the controler");
+	res.sendFile(path.join(__dirname, "../login.html"));
+
+  // res.send('Welcome to Passport with Sequelize');
+});
+
+// the original get from passport
+// app.get('/', (req, res) => {
+// 	console.log("got the initial request in the server");
+// 	res.sendFile(path.join(__dirname, "./login.html"));
+
+//   res.send('Welcome to Passport with Sequelize');
+// });
+
 
 
 // routes for functionality
 // route for the initial startup/login screen
-router.get("/", function(req, res){
-	console.log("We're in the starting get");
-	res.render("login")
-})
+// router.get("/", function(req, res){
+// 	console.log("We're in the starting get in beer controler");
+// 		res.sendFile(path.join(__dirname, "login.html"));
+
+// 	// res.render("login")
+// })
 
 // This route logs in customer
 router.post("/user", function(req, res) {
@@ -32,7 +50,7 @@ router.put("/showBeers", function(req, res) {
 
 
 	db.beerTbl.findAll({  }).then(function(dbBeer) {
-		res.render("index", ******  );
+		res.render("index");
       		// res.json(dbBeer);
 		});
 
@@ -71,7 +89,7 @@ router.put("/", function(req, res) {
 		.then(function(dbBeer) {
 		// need to return data here
 		res.redirect("/");
-		res.render("index", );
+		res.render("index");
       		// res.json(dbBeer);
 		});
 	});
