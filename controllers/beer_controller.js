@@ -2,18 +2,35 @@
 var express = require("express");
 // include the data definition from schema.js
 var db = require("../models");
+var path = require("path");
 
 var router = express.Router();
+
+router.get('/', (req, res) => {
+	console.log("got the initial passport request in the controler");
+	res.sendFile(path.join(__dirname, "../login.html"));
+
+  // res.send('Welcome to Passport with Sequelize');
+});
+
+// the original get from passport
+// app.get('/', (req, res) => {
+// 	console.log("got the initial request in the server");
+// 	res.sendFile(path.join(__dirname, "./login.html"));
+
+//   res.send('Welcome to Passport with Sequelize');
+// });
+
 
 
 // routes for functionality
 // route for the initial startup/login screen
-router.get("/", function(req, res){
-	console.log("We're in the starting get in beer controler");
-		res.sendFile(path.join(__dirname, "login.html"));
+// router.get("/", function(req, res){
+// 	console.log("We're in the starting get in beer controler");
+// 		res.sendFile(path.join(__dirname, "login.html"));
 
-	// res.render("login")
-})
+// 	// res.render("login")
+// })
 
 // This route logs in customer
 router.post("/user", function(req, res) {
