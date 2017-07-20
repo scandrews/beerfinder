@@ -4,14 +4,15 @@ var express = require("express");
 var db = require("../models");
 
 var router = express.Router();
-var currentUserId = 0;
 
 
 // routes for functionality
 // route for the initial startup/login screen
 router.get("/", function(req, res){
-	console.log("We're in the starting get");
-	res.render("login")
+	console.log("We're in the starting get in beer controler");
+		res.sendFile(path.join(__dirname, "login.html"));
+
+	// res.render("login")
 })
 
 // This route logs in customer
@@ -32,7 +33,7 @@ router.put("/showBeers", function(req, res) {
 
 
 	db.beerTbl.findAll({  }).then(function(dbBeer) {
-		res.render("index", ******  );
+		res.render("index");
       		// res.json(dbBeer);
 		});
 
@@ -71,7 +72,7 @@ router.put("/", function(req, res) {
 		.then(function(dbBeer) {
 		// need to return data here
 		res.redirect("/");
-		res.render("index", );
+		res.render("index");
       		// res.json(dbBeer);
 		});
 	});
