@@ -33,15 +33,33 @@ var listByType = function(){
 	});//test works 7-19 TG
 }
 
-var findMeBeers = function(){
-	var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', function(err, result){
-		if (err) throw err;
-				
-	})
+var searchDB = function(){
+	var prompt = "";		 //this will store the users inputed search
+		var findMeBeers = function(){ //this is a general search function for the db - search by name
+			var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:prompt}],
+			  function(err, result){
+				if (err) throw err;	
+				console.log("prompt:  " + prompt);
+					if (result.length == 0) {
+						console.log("nothing found");
+					}else{
+						console.log(result.name);
+						}
+			});
+		}
+	findMeBeers();
+}
+
+var matchBeer = function(){
+	//pull beer 1 from db and store in var
+
+	//based on stats from beer 1 identify matching beers
 }
 
 
 
+
+searchDB();
 //listAll();
 // listByType();
 }); //end of connection
