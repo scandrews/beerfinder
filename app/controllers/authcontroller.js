@@ -13,3 +13,9 @@ exports.signin = (req, res) => {
 exports.dashboard = (req, res) => {
   res.render('dashboard');
 };
+
+exports.logout = (req, res) => {
+  req.session.destroy((err) => {
+    res.redirect('/');
+  });
+};
