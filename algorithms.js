@@ -43,7 +43,9 @@ var searchDB = function(){
 					if (result.length == 0) {
 						console.log("nothing found");
 					}else{
-						console.log(result);
+							for (var i = 0; i < result.length; i++) {
+								console.log(result[i].name);
+							}
 						}
 			});
 		}
@@ -51,12 +53,14 @@ var searchDB = function(){
 }
 
 var matchBeer = function(){
-	var chosenBeerId = 1;
+	var chosenBeerId = 3;
 	//pull beer 1 from db and store in var
 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
  	function(err, result){
-		if (err) throw err;
-		console.log("matching beers to:" + result.name);
+		if (err) throw err; 
+		for (var i = 0; i < result.length; i++) {
+			console.log("matching beers to:" + result[0].RowDataPacket.name);
+		}
 	});
 
 	//based on stats from beer 1 identify matching beers
@@ -64,7 +68,7 @@ var matchBeer = function(){
 
 
 
-
+// matchBeer();
 searchDB();
 //listAll();
 // listByType();
