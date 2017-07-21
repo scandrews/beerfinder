@@ -22,7 +22,9 @@ app.use(
     resave: true,
     saveUninitialized: true,
   }),
-); // session secret
+);
+
+// session secret
 app.use(passport.initialize());
 app.use(passport.session());
 
