@@ -34,16 +34,16 @@ var listByType = function(){
 }
 
 var searchDB = function(){
-	var prompt = "";		 //this will store the users inputed search
+	var prompt = "Heady Topper";		 //this will store the users inputed search
 		var findMeBeers = function(){ //this is a general search function for the db - search by name
-			var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:prompt}],
+			var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{name:prompt}],
 			  function(err, result){
 				if (err) throw err;	
 				console.log("prompt:  " + prompt);
 					if (result.length == 0) {
 						console.log("nothing found");
 					}else{
-						console.log(result.name);
+						console.log(result);
 						}
 			});
 		}
@@ -51,7 +51,13 @@ var searchDB = function(){
 }
 
 var matchBeer = function(){
+	var chosenBeerId = 1;
 	//pull beer 1 from db and store in var
+	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
+ 	function(err, result){
+		if (err) throw err;
+		console.log("matching beers to:" + result.name);
+	});
 
 	//based on stats from beer 1 identify matching beers
 }
