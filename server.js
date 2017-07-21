@@ -1,3 +1,4 @@
+// FORGOT WHAT GOES HERE...IMPORTS? IDK
 const express = require('express');
 
 const app = express();
@@ -7,12 +8,18 @@ const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 
+// Routes
+const authRoute = require('./app/routes/auth.js')(app);
 
 app.get('/', (req, res) => {
   res.send('Welcome to Passport with Sequelize');
 });
 
-app.listen(3306, (err) => {
+app.get('/signup', (req, res) => {    //  signup
+  res.send('Signup route!');
+});
+
+app.listen(5002, (err) => {
   if (!err) {
     console.log('it lives!');
   } else console.log(err);

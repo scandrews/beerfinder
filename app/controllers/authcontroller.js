@@ -1,6 +1,4 @@
-const exports = modules.exports = {};
-
-exports.signup = function (req, res) {
-  res.render('signin');
-
+var exports = module.exports = {};
+exports.signup = (req, res) => {
+  res.render('signup');
 };
