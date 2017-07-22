@@ -1,81 +1,69 @@
-// The server file for Project 2 - the beer finder app
-'use strict';
+const express = require('express');
 
+const app = express();
 const passport = require('passport');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const env = require('dotenv').load();
-
-
-// Models  -  from John's passport
-const models = require('./models');
-// Requiring our models for syncing - from my stuff
-var db = require("./models");
-
-  
-// Node Package Dependencies
-var bodyParser = require("body-parser");
-var path = require("path");
-var methodOverride = require("method-override");
-var express = require("express");
-
-// Set up application dependencies
-var routes = require("./controllers/beer_controller.js");
-
-// Set up Express
-var app = express();
-// set up the port
-var PORT = process.env.PORT || 3000;
-
-// set up method override
-app.use(methodOverride("_method"));
-
-
-// route for static data/pages
-// app.use(express.static("./public"));
-
-// For BodyParser
+const exphbs = require('express-handlebars');
+const PORT = 3000;
+// for BodyParser
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-app.use("/", routes);
 
+// for Passport
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+  })
+);
 
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
+// session secret
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+app.use(passport.session());
 
-// Static directory
-// app.use(express.static("./public"));
-
-//------------------------
-// route for the style sheet
-app.get("/style", function(req, res){
-	res.sendFile(path.join(__dirname, "./public/css/style.css"));
-});
-
-// route for the image
-app.get("/url", function(req, res){
-	console.log("we got the image request");
-	res.sendFile(path.join(__dirname, "./public/images/burger.png"));
-});
+// for Handlebars
+app.set('views', './app/views');
+app.engine(
+  'hbs',
+  exphbs({
+    extname: '.hbs'
+  })
+);
+app.set('view engine', '.hbs');
 
 app.get('/', (req, res) => {
-	console.log("got the initial request in the server");
-	res.sendFile(path.join(__dirname, "./login.html"));
-
+	// signin();
   res.send('Welcome to Passport with Sequelize');
 });
 
-//------------------
+// Models
+const models = require('./app/models');
 
-// This was from John's Passport server file
+// Routes
+const authRoute = require('./app/routes/auth.js')(app, passport);
+
+// load passport strategies
+require('./app/config/passport/passport.js')(passport, models.user);
+
 // Sync Database
-// models.sequelize.sync().then(() => {
-// Syncing sequelize and start application
-db.sequelize.sync({ force: true }).then(function() {
-	app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
-	})
+models.sequelize
+  .sync()
+  .then(() => {
+    console.log('Nice! Database looks fine');
+  })
+  .catch((err) => {
+    console.log(err, 'Something went wrong with the Database Update!');
+  });
+
+app.listen(PORT, (err) => {
+  if (!err) {
+    console.log('Site is live listening on PORT', PORT);
+  } else console.log(err);
 });

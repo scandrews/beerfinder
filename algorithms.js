@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 	//your username
 	user: "root",
 	//your password
-	password:"advictoriam",
+	password:"",
 	database: "beer_db"
 
 });
@@ -23,6 +23,7 @@ var listAll = function(){
 		}
 	});//test works 7-19 TG
 }
+//list the beers out by type
 var listByType = function(){
 	var styleSearch = "IPA";
 	var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{style: styleSearch}], function(err, result){
@@ -33,7 +34,7 @@ var listByType = function(){
 			}
 	});//test works 7-19 TG
 }
-
+//search the db by name
 var searchDB = function(){
 	var prompt = "Heady Topper";		 //this will store the users inputed search
 		var findMeBeers = function(){ //this is a general search function for the db - search by name
@@ -52,9 +53,9 @@ var searchDB = function(){
 		}
 	findMeBeers();
 }
-
+//match a chosen beer to similar beers in the db - STILL IN PROGRESS
 var matchBeer = function(){
-	var chosenBeerId = 3;
+	var chosenBeerId = 1;
 	//pull beer 1 from db and store in var
 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
  	function(err, result){
@@ -70,15 +71,19 @@ var matchBeer = function(){
 // SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
 // '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
 
+ibuLimitHigh = searchIbu + 25;
+ibuLimitLow = searchIbu - 25;
+colorLimitHigh = searchColor + 2;
+colorLimitLow = searchColor - 2;
 
-			//based on stats from beer 1 identify matching beers	
-			var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE (hoppieness LIKE searchIbu) AND (color LIKE searchColor) AND (style LIKE searchStyle)', 
-				function(err, result){
-				if(err) throw err;
-				for (var i = 0; i < result.length; i++) {
-					console.log("your beer matches with: " + result[i].name);
-				}
-				});	
+			//based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
+	var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,  
+		function(err, result){
+			if(err) throw err;
+			for (var i = 0; i < result.length; i++) {
+				console.log("your beer matches with: " + result[i].name);
+			}
+		});	
 	});	
 }
 
@@ -96,11 +101,9 @@ var beerOfTheDay = function(){
 
 
 
-
-
-
+//my sql .escape makes usre the variable you're using is ok to use with SQL
 // beerOfTheDay(); 	//	7/22 working TG
-// matchBeer();		//	7/22 IN PROGRESS TG
+matchBeer();		//	7/22 IN PROGRESS TG
 // searchDB();		//	7-22 working TG
 // listAll();		//	7-22 working TG
 // listByType();	// 	7-22 working TG

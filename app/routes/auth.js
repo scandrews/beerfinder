@@ -2,6 +2,13 @@ const authController = require('../controllers/authcontroller.js');
 
 
 module.exports = (app, passport) => {
+
+  // app.get('/', (req, res) => {
+  //   signin();
+  //   // res.send('Welcome to Passport with Sequelize');
+  // });
+
+
   app.get('/signup', authController.signup);
 
 
