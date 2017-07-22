@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 	//your username
 	user: "root",
 	//your password
-	password:"advictoriam",
+	password:"",
 	database: "beer_db"
 
 });
@@ -23,6 +23,7 @@ var listAll = function(){
 		}
 	});//test works 7-19 TG
 }
+//list the beers out by type
 var listByType = function(){
 	var styleSearch = "IPA";
 	var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{style: styleSearch}], function(err, result){
@@ -33,7 +34,7 @@ var listByType = function(){
 			}
 	});//test works 7-19 TG
 }
-
+//search the db by name
 var searchDB = function(){
 	var prompt = "Heady Topper";		 //this will store the users inputed search
 		var findMeBeers = function(){ //this is a general search function for the db - search by name
@@ -52,7 +53,7 @@ var searchDB = function(){
 		}
 	findMeBeers();
 }
-
+//match a chosen beer to similar beers in the db - STILL IN PROGRESS
 var matchBeer = function(){
 	var chosenBeerId = 3;
 	//pull beer 1 from db and store in var
@@ -93,8 +94,6 @@ var beerOfTheDay = function(){
 				console.log("The Beer of the Day is: " + result[0].name);
 			});
 }
-
-
 
 
 
