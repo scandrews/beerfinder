@@ -5,35 +5,16 @@ const passport = require('passport');
 const session = require('express-session');
 const env = require('dotenv').load();
 
-
-// Models  -  from John's passport
-const models = require('./models');
-// Requiring our models for syncing - from my stuff
-var db = require("./models");
-
-  
-// Node Package Dependencies
-var bodyParser = require("body-parser");
-var path = require("path");
-var methodOverride = require("method-override");
-var express = require("express");
-
-// Set up application dependencies
-var routes = require("./controllers/beer_controller.js");
-
-// Set up Express
-var app = express();
-// set up the port
-var PORT = process.env.PORT || 3000;
-
-// set up method override
-app.use(methodOverride("_method"));
+const exphbs = require('express-handlebars');
+const PORT = 3000;
+// for BodyParser
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 
 
-// route for static data/pages
-// app.use(express.static("./public"));
-
-// For BodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
@@ -72,10 +53,18 @@ app.get('/', (req, res) => {
 
 // This was from John's Passport server file
 // Sync Database
-// models.sequelize.sync().then(() => {
-// Syncing sequelize and start application
-db.sequelize.sync({ force: true }).then(function() {
-	app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
-	})
+models.sequelize
+  .sync()
+  .then(() => {
+    console.log('Nice! Database looks fine');
+  })
+  .catch((err) => {
+    console.log(err, 'Something went wrong with the Database Update!');
+  });
+
+app.listen(PORT, (err) => {
+  if (!err) {
+    console.log('Site is live listening on PORT', PORT);
+  } else console.log(err);
+
 });
