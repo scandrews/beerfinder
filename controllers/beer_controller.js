@@ -9,9 +9,9 @@ var router = express.Router();
 router.get('/', (req, res) => {
 	console.log("got the initial passport request in the controler");
 	res.sendFile(path.join(__dirname, "../login.html"));
+});
 
   // res.send('Welcome to Passport with Sequelize');
-});
 
 // the original get from passport
 // app.get('/', (req, res) => {
@@ -25,12 +25,12 @@ router.get('/', (req, res) => {
 
 // routes for functionality
 // route for the initial startup/login screen
-// router.get("/", function(req, res){
-// 	console.log("We're in the starting get in beer controler");
-// 		res.sendFile(path.join(__dirname, "login.html"));
+router.get("/login", function(req, res){
+	console.log("We're in the user login");
+		res.sendFile(path.join(__dirname, "../index.html"));
 
-// 	// res.render("login")
-// })
+	// res.render("login")
+})
 
 // This route logs in customer
 router.post("/user", function(req, res) {
