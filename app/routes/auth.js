@@ -12,9 +12,7 @@ module.exports = (app, passport) => {
     successRedirect: '/dashboard',
 
     failureRedirect: '/signup',
-  },
-
-  ));
+  }));
 
 
   app.get('/dashboard', isLoggedIn, authController.dashboard);
@@ -27,7 +25,7 @@ module.exports = (app, passport) => {
     successRedirect: '/dashboard',
 
     failureRedirect: '/signin',
-  },
+  }
 
   ));
 

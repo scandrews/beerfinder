@@ -124,8 +124,8 @@ module.exports = (passport, user) => {
             message: 'Something went wrong with your Signin',
           });
         });
-      }),
+      })
 
-    )),
+    ))
   ));
 };
