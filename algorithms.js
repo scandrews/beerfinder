@@ -59,17 +59,33 @@ var matchBeer = function(){
  	function(err, result){
 		if (err) throw err; 
 		for (var i = 0; i < result.length; i++) {
-			console.log("matching beers to:" + result[0].RowDataPacket.name);
+			console.log("matching beers to: " + result[0].name);
+			//grabbing selected beer identifiers to match with
+			var searchIbu = result[0].hoppieness;
+			var searchColor = result[0].color;
+			var searchStyle = result[0].style;
+			// var smell = result[0].smell; //we need a much larger db for this to work - removed for now
 		}
-	});
 
-	//based on stats from beer 1 identify matching beers
+			//based on stats from beer 1 identify matching beers	
+			var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE ?', [
+			{	hoppieness:searchIbu,
+				color:searchColor,
+				style:searchStyle }
+			], function(err, result){
+				if(err) throw err;
+				for (var i = 0; i < result.length; i++) {
+					console.log("your beer matches with: " + result[i].name);
+				}
+				});	
+	});	
 }
 
-
-
-// matchBeer();
-searchDB();
+matchBeer();
+// searchDB();
 //listAll();
 // listByType();
-}); //end of connection
+
+});//end of connection
+
+
