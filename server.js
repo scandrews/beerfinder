@@ -29,7 +29,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // for Handlebars
-app.set('views', './app/views');
+app.set('views', './views');
 app.engine(
   'hbs',
   exphbs({
@@ -44,13 +44,13 @@ app.set('view engine', '.hbs');
 // });
 
 // Models
-const models = require('./app/models');
+const models = require('./models');
 
 // Routes
-const authRoute = require('./app/routes/auth.js')(app, passport);
+const authRoute = require('./controllers/auth.js')(app, passport);
 
 // load passport strategies
-require('./app/config/passport/passport.js')(passport, models.user);
+require('./config/passport.js')(passport, models.user);
 
 // Sync Database
 models.sequelize
