@@ -38,10 +38,10 @@ app.engine(
 );
 app.set('view engine', '.hbs');
 
-app.get('/', (req, res) => {
-	// signin();
-  res.send('Welcome to Passport with Sequelize');
-});
+// app.get('/', (req, res) => {
+// 	// signin();
+//   res.send('Welcome to Passport with Sequelize');
+// });
 
 // Models
 const models = require('./app/models');

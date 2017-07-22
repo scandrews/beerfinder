@@ -7,6 +7,7 @@ module.exports = (app, passport) => {
   //   signin();
   //   // res.send('Welcome to Passport with Sequelize');
   // });
+  app.get('/', authController.signin);
 
 
   app.get('/signup', authController.signup);
