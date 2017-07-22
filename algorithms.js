@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 	//your username
 	user: "root",
 	//your password
-	password:"",
+	password:"advictoriam",
 	database: "beer_db"
 
 });
@@ -24,7 +24,8 @@ var listAll = function(){
 	});//test works 7-19 TG
 }
 var listByType = function(){
-	var beerList = connection.query('SELECT * FROM beerTbl WHERE style= "IPA"', function(err, result){
+	var styleSearch = "IPA";
+	var beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{style: styleSearch}], function(err, result){
 		if (err) throw err; 
 			for (var i = 0; i < result.length; i++) {	
 				console.log(result[i].name + '_____' + result[i].style);
@@ -66,13 +67,13 @@ var matchBeer = function(){
 			var searchStyle = result[0].style;
 			// var smell = result[0].smell; //we need a much larger db for this to work - removed for now
 		}
+// SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
+// '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
+
 
 			//based on stats from beer 1 identify matching beers	
-			var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE ?', [
-			{	hoppieness:searchIbu,
-				color:searchColor,
-				style:searchStyle }
-			], function(err, result){
+			var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE (hoppieness LIKE searchIbu) AND (color LIKE searchColor) AND (style LIKE searchStyle)', 
+				function(err, result){
 				if(err) throw err;
 				for (var i = 0; i < result.length; i++) {
 					console.log("your beer matches with: " + result[i].name);
@@ -81,10 +82,28 @@ var matchBeer = function(){
 	});	
 }
 
-matchBeer();
-// searchDB();
-//listAll();
-// listByType();
+
+//find a random beer of the day
+var beerOfTheDay = function(){
+	var beerOfTheDayID = Math.floor((Math.random() * 20) + 1);
+	console.log(beerOfTheDayID);
+		find = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:beerOfTheDayID}], 
+			function(err, result){
+				if (err) throw err;
+				console.log("The Beer of the Day is: " + result[0].name);
+			});
+}
+
+
+
+
+
+
+// beerOfTheDay(); 	//	7/22 working TG
+// matchBeer();		//	7/22 IN PROGRESS TG
+// searchDB();		//	7-22 working TG
+// listAll();		//	7-22 working TG
+// listByType();	// 	7-22 working TG
 
 });//end of connection
 
