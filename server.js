@@ -6,7 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-
+const PORT = 3000;
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
@@ -61,8 +61,8 @@ models.sequelize
     console.log(err, 'Something went wrong with the Database Update!');
   });
 
-app.listen(3306, (err) => {
+app.listen(PORT, (err) => {
   if (!err) {
-    console.log('Site is live');
+    console.log('Site is live listening on PORT', PORT);
   } else console.log(err);
 });
