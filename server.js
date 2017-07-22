@@ -6,12 +6,12 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-const PORT = 3002;
+const PORT = 3000;
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
-    extended: true,
-  }),
+    extended: true
+  })
 );
 app.use(bodyParser.json());
 
@@ -20,8 +20,8 @@ app.use(
   session({
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: true,
-  }),
+    saveUninitialized: true
+  })
 );
 
 // session secret
@@ -33,12 +33,13 @@ app.set('views', './app/views');
 app.engine(
   'hbs',
   exphbs({
-    extname: '.hbs',
-  }),
+    extname: '.hbs'
+  })
 );
 app.set('view engine', '.hbs');
 
 app.get('/', (req, res) => {
+	// signin();
   res.send('Welcome to Passport with Sequelize');
 });
 
