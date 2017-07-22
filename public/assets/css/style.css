@@ -1,0 +1,26 @@
+.navbar.navbar-default {
+	background-color: transparent;
+}
+
+body {
+	background-image: url("../images/beer.jpg");
+	background-size: 100%;
+}
+
+.jumbotron {
+	background-color: transparent;
+	color: orange;
+}
+
+h2 {
+	color: white;
+}
+
+.list-group-item { 
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
