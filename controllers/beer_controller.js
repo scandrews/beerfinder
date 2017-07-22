@@ -1,7 +1,7 @@
 
 var express = require("express");
 // include the data definition from schema.js
-var db = require("../models");
+var db = require("./models");
 var path = require("path");
 
 var router = express.Router();
