@@ -6,6 +6,7 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+	console.log("we're in the authcontroller")
   res.render('signin');
 };
 
