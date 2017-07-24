@@ -6,42 +6,8 @@ var path = require("path");
 
 var router = express.Router();
 
-router.get('/', (req, res) => {
-	console.log("got the initial passport request in the controler");
-	res.sendFile(path.join(__dirname, "../login.html"));
-});
-
-  // res.send('Welcome to Passport with Sequelize');
-
-// the original get from passport
-// app.get('/', (req, res) => {
-// 	console.log("got the initial request in the server");
-// 	res.sendFile(path.join(__dirname, "./login.html"));
-
-//   res.send('Welcome to Passport with Sequelize');
-// });
-
-
 
 // routes for functionality
-// route for the initial startup/login screen
-router.get("/login", function(req, res){
-	console.log("We're in the user login");
-		res.sendFile(path.join(__dirname, "../index.html"));
-
-	// res.render("login")
-})
-
-// This route logs in customer
-router.post("/user", function(req, res) {
-	console.log("we're in the user post");
-	console.log(req.body.cust_name)
-
-// check the db for that user
-// if not in db - create
-
-// if user is aready in db
-//    return isting of beers
 
 
 // route for listing all beers
@@ -49,18 +15,17 @@ router.put("/showBeers", function(req, res) {
 	console.log("We're in show beers");
 
 
-	db.beerTbl.findAll({  }).then(function(dbBeer) {
-		res.render("index");
-      		// res.json(dbBeer);
-		});
+db.beerTbl.listAll({}).then(function(dbBeer) {
+	res.render("index");
+      	res.json(dbBeer);
+});
 
 });
 
 
 // this route creates new beers
 router.put("/", function(req, res) {
-	console.log("we're in the beer put");
-
+	console.log("we're in the beer put route ");
 
 	db.beerTbl.create({
 			name: req.body.name,

@@ -20,6 +20,7 @@ var listAll = function(){
 		if (err) throw err;
 			for (var i = result.length - 1; i >= 0; i--) {
 				console.log(result[i].name + '\n');
+				res.json(result[i].name);
 		}
 	});//test works 7-19 TG
 }
@@ -96,6 +97,7 @@ var beerOfTheDay = function(){
 			function(err, result){
 				if (err) throw err;
 				console.log("The Beer of the Day is: " + result[0].name);
+				res.json(result[0].name);
 			});
 }
 
