@@ -103,7 +103,7 @@ var beerOfTheDay = function(){
 
 //my sql .escape makes usre the variable you're using is ok to use with SQL
 // beerOfTheDay(); 	//	7/22 working TG
-matchBeer();		//	7/22 IN PROGRESS TG
+// matchBeer();		//	7/22 working TG
 // searchDB();		//	7-22 working TG
 // listAll();		//	7-22 working TG
 // listByType();	// 	7-22 working TG
