@@ -29,14 +29,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // for Handlebars
-app.set('views', './app/views');
-app.engine(
-  'hbs',
-  exphbs({
-    extname: '.hbs'
-  })
+app.set('views', './views');
+app.engine( "handlebars", (exphbs({
+    defaultLayout: 'main'
+  }))
 );
-app.set('view engine', '.hbs');
+app.set('view engine', 'handlebars');
 
 // app.get('/', (req, res) => {
 // 	// signin();
@@ -44,13 +42,13 @@ app.set('view engine', '.hbs');
 // });
 
 // Models
-const models = require('./app/models');
+const models = require('./models');
 
 // Routes
-const authRoute = require('./app/routes/auth.js')(app, passport);
+const authRoute = require('./controllers/auth.js')(app, passport);
 
 // load passport strategies
-require('./app/config/passport/passport.js')(passport, models.user);
+require('./config/passport.js')(passport, models.user);
 
 // Sync Database
 models.sequelize
