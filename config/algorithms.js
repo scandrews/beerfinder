@@ -117,4 +117,4 @@ var algorithms = {
 	matchBeer: matchBeer,
 	listAll: listAll	
 }
-
+module.exports = algorithms;
