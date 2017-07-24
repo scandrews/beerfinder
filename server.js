@@ -30,13 +30,13 @@ app.use(passport.session());
 
 // for Handlebars
 app.set('views', './views');
-app.engine(
-  'hbs',
-  exphbs({
-    extname: '.hbs'
-  })
+
+app.engine( "handlebars", (exphbs({
+    defaultLayout: 'main'
+  }))
+
 );
-app.set('view engine', '.hbs');
+app.set('view engine', 'handlebars');
 
 // app.get('/', (req, res) => {
 // 	// signin();
