@@ -4,9 +4,15 @@ const app = express();
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const env = require('dotenv').load();
+// const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
+
 const PORT = 3000;
+const path = require('path');
+
+// for including CSS
+app.use(express.static('public'));
+
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
@@ -41,7 +47,7 @@ app.engine( "handlebars", (exphbs({
 app.set('view engine', 'handlebars');
 
 // app.get('/', (req, res) => {
-// 	// signin();
+//  // signin();
 //   res.send('Welcome to Passport with Sequelize');
 // });
 
@@ -56,6 +62,8 @@ const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
+
+// Serve static content for the app from the 'public' directory in the application directory.
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);

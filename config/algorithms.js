@@ -20,8 +20,6 @@ var listAll = function(){
 		if (err) throw err;
 			for (var i = result.length - 1; i >= 0; i--) {
 				console.log(result[i].name + '\n');
-				var allBeers = {allBeers:result[i].name};
-				return(allBeers);
 		}
 	});//test works 7-19 TG
 }
@@ -57,7 +55,7 @@ var searchDB = function(){
 }
 //match a chosen beer to similar beers in the db - STILL IN PROGRESS
 var matchBeer = function(){
-	var chosenBeerId = 1;
+	var chosenBeerId = req.param.id;
 	//pull beer 1 from db and store in var
 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
  	function(err, result){
@@ -84,8 +82,6 @@ colorLimitLow = searchColor - 2;
 			if(err) throw err;
 			for (var i = 0; i < result.length; i++) {
 				console.log("your beer matches with: " + result[i].name);
-				var returnMatched = {matched: result[i].name};
-				return(returnMatched); 
 			}
 		});	
 	});	
@@ -93,28 +89,34 @@ colorLimitLow = searchColor - 2;
 
 
 //find a random beer of the day
-var getBeerOfTheDay = function(){
+var beerOfTheDay = function(){
 	var beerOfTheDayID = Math.floor((Math.random() * 20) + 1);
 	console.log(beerOfTheDayID);
 		find = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:beerOfTheDayID}], 
 			function(err, result){
 				if (err) throw err;
 				console.log("The Beer of the Day is: " + result[0].name);
-				// res.json(result[0].name);
-				var beerOfTheDay = {beer: result[0].name};
-				return(beerOfTheDay);
 			});
 }
- 	
+
+
+
+//my sql .escape makes usre the variable you're using is ok to use with SQL
+// beerOfTheDay(); 	//	7/22 working TG
+matchBeer();		//	7/22 IN PROGRESS TG
 // searchDB();		//	7-22 working TG
 // listAll();		//	7-22 working TG
 // listByType();	// 	7-22 working TG
 
 });//end of connection
 
+<<<<<<< HEAD
+
+=======
 var algorithms = {
 	getBeerOfTheDay: getBeerOfTheDay,
 	matchBeer: matchBeer,
 	listAll: listAll	
 }
 module.exports = algorithms;
+>>>>>>> b99aa00afdd5509acc5a8e7814cbea4c2d19b825
