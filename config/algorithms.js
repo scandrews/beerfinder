@@ -55,7 +55,7 @@ var searchDB = function(){
 }
 //match a chosen beer to similar beers in the db - STILL IN PROGRESS
 var matchBeer = function(){
-	var chosenBeerId = 1;
+	var chosenBeerId = req.param.id;
 	//pull beer 1 from db and store in var
 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
  	function(err, result){
@@ -110,4 +110,13 @@ matchBeer();		//	7/22 IN PROGRESS TG
 
 });//end of connection
 
+<<<<<<< HEAD
 
+=======
+var algorithms = {
+	getBeerOfTheDay: getBeerOfTheDay,
+	matchBeer: matchBeer,
+	listAll: listAll	
+}
+module.exports = algorithms;
+>>>>>>> b99aa00afdd5509acc5a8e7814cbea4c2d19b825

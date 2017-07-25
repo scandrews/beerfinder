@@ -36,9 +36,11 @@ app.use(passport.session());
 
 // for Handlebars
 app.set('views', './views');
-app.engine( 'handlebars', (exphbs({
+
+app.engine( "handlebars", (exphbs({
     defaultLayout: 'main'
   }))
+
 );
 app.set('view engine', 'handlebars');
 
@@ -57,7 +59,6 @@ const authRoute = require('./controllers/auth.js')(app, passport);
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
-
 
 // Sync Database
 models.sequelize
