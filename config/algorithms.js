@@ -32,7 +32,7 @@ var listByType = function(){
 		if (err) throw err; 
 			for (var i = 0; i < result.length; i++) {	
 				console.log(result[i].name + '_____' + result[i].style);
-
+				
 			}
 	});//test works 7-19 TG
 }
