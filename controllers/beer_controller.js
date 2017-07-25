@@ -15,10 +15,10 @@ router.put("/showBeers", function(req, res) {
 	console.log("We're in show beers");
 
 
-db.beerTbl.listAll({}).then(function(dbBeer) {
-	res.render("index");
-      	res.json(dbBeer);
-});
+	db.beerTbl.listAll({}).then(function(dbBeer) {
+		res.render("index");
+	      	res.json(dbBeer);
+	});
 
 });
 
