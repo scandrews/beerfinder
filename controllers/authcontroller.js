@@ -11,13 +11,14 @@ exports.signin = (req, res) => {
   res.render('index');
 };
 
-exports.signin = (req, res) => {
-	console.log("we're in the authcontroller")
-  res.render('index');
-};
+// exports.signin = (req, res) => {
+// 	console.log("we're in the authcontroller")
+//   res.render('index');
+// };
 
 
 exports.dashboard = (req, res) => {
+	console.log("we're in the dashboard authcontroller");
   res.render('dashboard');
 };
 
