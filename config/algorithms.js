@@ -32,7 +32,7 @@ var listByType = function(){
 		if (err) throw err; 
 			for (var i = 0; i < result.length; i++) {	
 				console.log(result[i].name + '_____' + result[i].style);
-				
+
 			}
 	});//test works 7-19 TG
 }
@@ -57,7 +57,7 @@ var searchDB = function(){
 }
 //match a chosen beer to similar beers in the db - STILL IN PROGRESS
 var matchBeer = function(){
-	var chosenBeerId = 1;
+	var chosenBeerId = req.param.id;
 	//pull beer 1 from db and store in var
 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
  	function(err, result){
