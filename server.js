@@ -8,6 +8,12 @@ const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 const PORT = 3000;
 var path = require("path");
+
+
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
+
+
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
@@ -52,7 +58,6 @@ const authRoute = require('./controllers/auth.js')(app, passport);
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
-
 
 
 // Sync Database
