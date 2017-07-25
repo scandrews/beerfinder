@@ -6,8 +6,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-
-const PORT = 3000;
+const PORT = 3004;
+var path = require('path');
 
 // for BodyParser
 app.use(
@@ -32,13 +32,11 @@ app.use(passport.session());
 
 // for Handlebars
 app.set('views', './views');
-app.engine(
-  'hbs',
-  exphbs({
-    extname: '.hbs'
-  })
+app.engine( 'handlebars', (exphbs({
+    defaultLayout: 'main'
+  }))
 );
-app.set('view engine', '.hbs');
+app.set('view engine', 'handlebars');
 
 // app.get('/', (req, res) => {
 // 	// signin();
@@ -51,8 +49,18 @@ const models = require('./models');
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
 
+
+
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
+
+
+
+// for loading CSS
+app.get('/style', function(req, res){
+ console.log('got the css request');
+ res.sendFile(path.join(__dirname, './public/assets/css/style.css'));
+});
 
 // Sync Database
 models.sequelize
