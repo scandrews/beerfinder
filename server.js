@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 const PORT = 3000;
+var path = require("path");
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
@@ -51,6 +52,8 @@ const authRoute = require('./controllers/auth.js')(app, passport);
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
+
+
 
 // Sync Database
 models.sequelize

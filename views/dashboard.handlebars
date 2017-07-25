@@ -6,78 +6,40 @@
 		<div class="col-xs-12 col-sm-9">
 			<p class="pull-right visible-xs"></p>
 
-			<div class="jumbotron">
-				<h1>BEERS!</h1>
-				<p>The beer of the day is...</p>
-			</div>
+					<div class="jumbotron">
+						<h1>BEERS!</h1>
+						<p>The beer of the day is...</p>
+					</div>
 
 				<div class="row">
 
-	<!-- 			BEER ROW!
-	 -->			
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 1</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
-
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 2</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
-
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 3</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
-
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 4</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
-
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 5</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
-
-					<div class="col-xs-6 col-lg-4">
-						<h2>Beer 6</h2>
-						<p>
-							<a class="btn btn-default" href="#" role="button"> View Details>
-							</a>
-						</p>
-					</div>
+						{{#each}}
+							<div class="col-xs-6 col-lg-4">
+							
+								<p>
+									<a class="btn btn-default" href="#" role="button"> View Details>
+									</a>
+								</p>
+							</div>
+						{{/each}}
+					
 
 				</div>
-			</div>
 
-			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-			
-				<div class="list-group">
+				<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+				
+					    <div class="list-group">
 
-					<a href="#" class="list-group-item warning">Link</a>
-						<a href="#" class="list-group-item">Link</a>
-						<a href="#" class="list-group-item">Link</a>
-						<a href="#" class="list-group-item">Link</a>
-						<a href="#" class="list-group-item">Link</a>
-						<a href="#" class="list-group-item">Link</a>
+							<a href="#" class="list-group-item warning">Link</a>
+								<a href="#" class="list-group-item">Link</a>
+								<a href="#" class="list-group-item">Link</a>
+								<a href="#" class="list-group-item">Link</a>
+								<a href="#" class="list-group-item">Link</a>
+								<a href="#" class="list-group-item">Link</a>
+					    </div>
 				</div>
-			</div>
+		</div>
+
 	</div>
 
 
