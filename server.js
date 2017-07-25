@@ -6,12 +6,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-<<<<<<< HEAD
 
-const PORT = 3002;
-=======
 const PORT = 3000;
->>>>>>> 6c59ddf8bc0cb4d6796e9a84a8dde509e05e6fb4
+
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
