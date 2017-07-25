@@ -20,6 +20,7 @@ var listAll = function(){
 		if (err) throw err;
 			for (var i = result.length - 1; i >= 0; i--) {
 				console.log(result[i].name + '\n');
+				res.json(result[i].name);
 		}
 	});//test works 7-19 TG
 }
@@ -96,6 +97,7 @@ var beerOfTheDay = function(){
 			function(err, result){
 				if (err) throw err;
 				console.log("The Beer of the Day is: " + result[0].name);
+				res.json(result[0].name);
 			});
 }
 
@@ -103,7 +105,7 @@ var beerOfTheDay = function(){
 
 //my sql .escape makes usre the variable you're using is ok to use with SQL
 // beerOfTheDay(); 	//	7/22 working TG
-matchBeer();		//	7/22 IN PROGRESS TG
+// matchBeer();		//	7/22 working TG
 // searchDB();		//	7-22 working TG
 // listAll();		//	7-22 working TG
 // listByType();	// 	7-22 working TG
