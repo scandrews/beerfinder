@@ -54,10 +54,6 @@ const authRoute = require('./controllers/auth.js')(app, passport);
 require('./config/passport.js')(passport, models.user);
 
 
-app.get("/style", function(req, res){
- console.log("got the css request");
- res.sendFile(path.join(__dirname, "./public/assets/css/style.css"));
-});
 
 // Sync Database
 models.sequelize
