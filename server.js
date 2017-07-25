@@ -37,8 +37,6 @@ app.use(passport.session());
 // for Handlebars
 app.set('views', './views');
 
-var path = require("path");
-
 app.engine( "handlebars", (exphbs({
     defaultLayout: 'main'
   }))
