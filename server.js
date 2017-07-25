@@ -7,10 +7,11 @@ const bodyParser = require('body-parser');
 // const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 
-const PORT = 3005;
+const PORT = 3000;
 const path = require('path');
 
-app.use(express.static("public"));
+// for including CSS
+app.use(express.static('public'));
 
 // for BodyParser
 app.use(
@@ -52,7 +53,7 @@ const models = require('./models');
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
 
-// Serve static content for the app from the "public" directory in the application directory.
+// Serve static content for the app from the 'public' directory in the application directory.
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
