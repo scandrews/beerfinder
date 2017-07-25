@@ -27,26 +27,28 @@
 
 <div class="cont_forms" >
 
- <div class="cont_form_login">
-<a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
-   <h2>LOGIN</h2>
-   
-    <input type="email" placeholder="Email"
-           input type="submit"/>
-          <input type="password" placeholder="Password" />
-   <p class="forgot"><a href="https://codepen.io/tnmaysharma/full/KzLGOw/"><font color= "white">Forgot Password?</font></a></p>
-<button class="btn_login" type="submit" onclick="cambiar_login()">LOGIN</button>
+  <div class="cont_form_login">
+    <a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
+       <h2>LOGIN</h2>
+       <!-- <form class=form-signin> -->
+        <form id="signin" name="signin" method="post" action="signin">
+            <input type="email" placeholder="Email" input type="submit"/>
+            <input type="password" placeholder="Password" />
+            <p class="forgot"><a href="https://codepen.io/tnmaysharma/full/KzLGOw/"><font color= "white">Forgot Password?</font></a></p>
+            <button class="btn_login" type="submit" >LOGIN</button>
+        </form>
   </div>
   
-   <div class="cont_form_sign_up">
-<a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
-     <h2>SIGN UP</h2>
-<input type="email" placeholder="Email" />
-<input type="text" placeholder="User" />
-<input type="password" placeholder="Password" />
-<input type="password" placeholder="Confirm Password" />
-<button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
-
+  <div class="cont_form_sign_up">
+      <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+           <h2>SIGN UP</h2>
+      <form id="signup" name="signup" method="post" action="/signup">
+          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="User" />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm Password" />
+          <button class="btn_sign_up" type="submit" onclick="cambiar_sign_up()">SIGN UP</button>
+      </form>
   </div>
 
     </div>
@@ -55,7 +57,61 @@
  </div>
 </div>
 
+<script>
 
+  function cambiar_login() {
+    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";  
+    document.querySelector('.cont_form_login').style.display = "block";
+    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
+
+    setTimeout(function(){  document.querySelector('.cont_form_login').style.opacity = "1"; },400);  
+
+    setTimeout(function(){    
+    document.querySelector('.cont_form_sign_up').style.display = "none";
+    },200);  
+    }
+
+    function cambiar_sign_up(at) {
+    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
+    document.querySelector('.cont_form_sign_up').style.display = "block";
+    document.querySelector('.cont_form_login').style.opacity = "0";
+
+    setTimeout(function(){  document.querySelector('.cont_form_sign_up').style.opacity = "1";
+    },100);  
+
+    setTimeout(function(){   document.querySelector('.cont_form_login').style.display = "none";
+    },400);  
+
+
+  }    
+
+
+
+  function ocultar_login_sign_up() {
+
+    document.querySelector('.cont_forms').className = "cont_forms";  
+    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
+    document.querySelector('.cont_form_login').style.opacity = "0"; 
+
+    setTimeout(function(){
+    document.querySelector('.cont_form_sign_up').style.display = "none";
+    document.querySelector('.cont_form_login').style.display = "none";
+    },500);  
+
+  }
+
+//     $("#submit").on("click", function(event) {
+//       event.preventDefault();
+//       console.log("got the click on this end");
+//       // Question: What does this code do??
+//       $.post("/login", inputEmail)
+//       .done(function(data) {
+//         console.log(data);
+//         console.log("Adding user");
+//       });
+// });
+
+</script>
 
 
 
