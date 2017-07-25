@@ -31,6 +31,8 @@ app.use(passport.session());
 // for Handlebars
 app.set('views', './views');
 
+var path = require("path");
+
 app.engine( "handlebars", (exphbs({
     defaultLayout: 'main'
   }))
@@ -42,6 +44,12 @@ app.set('view engine', 'handlebars');
 // 	// signin();
 //   res.send('Welcome to Passport with Sequelize');
 // });
+
+// Static directory
+app.use(express.static("public"));
+
+
+// app.use('/static', express.static(path.join(__dirname, 'public')));
 
 // Models
 const models = require('./models');

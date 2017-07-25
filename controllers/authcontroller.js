@@ -2,12 +2,13 @@ var exports = module.exports = {};
 
 
 exports.signup = (req, res) => {
-  res.render('signup');
+	console.log("we're in the signUP authcontroller")
+  res.render('dashboard');
 };
 
 exports.signin = (req, res) => {
-	console.log("we're in the authcontroller")
-  res.render('signin');
+	console.log("we're in the signIN authcontroller")
+  res.render('index');
 };
 
 
