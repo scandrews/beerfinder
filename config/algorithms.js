@@ -32,7 +32,8 @@ var listByType = function(){
 		if (err) throw err; 
 			for (var i = 0; i < result.length; i++) {	
 				console.log(result[i].name + '_____' + result[i].style);
-
+				var typeBeers = {byType: result[i].name};
+				return(typeBeers);
 			}
 	});//test works 7-19 TG
 }
@@ -115,6 +116,7 @@ var getBeerOfTheDay = function(){
 var algorithms = {
 	getBeerOfTheDay: getBeerOfTheDay,
 	matchBeer: matchBeer,
-	listAll: listAll	
+	listAll: listAll,
+	listByType: listByType	
 }
 module.exports = algorithms;
