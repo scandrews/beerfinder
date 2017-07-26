@@ -74,39 +74,39 @@ var searchDB = function(){
 		}
 	findMeBeers();
 };
-//match a chosen beer to similar beers in the db - STILL IN PROGRESS
-// var matchBeer = function(){
-// 	var chosenBeerId = req.param.id;
-// 	//pull beer 1 from db and store in var
-// 	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
-//  	function(err, result){
-// 		if (err) throw err; 
-// 		for (var i = 0; i < result.length; i++) {
-// 			console.log("matching beers to: " + result[0].name);
-// 			//grabbing selected beer identifiers to match with
-// 			var searchIbu = result[0].hoppieness;
-// 			var searchColor = result[0].color;
-// 			var searchStyle = result[0].style;
-// 			// var smell = result[0].smell; //we need a much larger db for this to work - removed for now
-// 		}
-// // SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
-// // '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
 
-// ibuLimitHigh = searchIbu + 25;
-// ibuLimitLow = searchIbu - 25;
-// colorLimitHigh = searchColor + 2;
-// colorLimitLow = searchColor - 2;
+exports.matchBeer = function(){
+	var chosenBeerId = req.param.id;
+	//pull beer 1 from db and store in var
+	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
+ 	function(err, result){
+		if (err) throw err; 
+		for (var i = 0; i < result.length; i++) {
+			console.log("matching beers to: " + result[0].name);
+			//grabbing selected beer identifiers to match with
+			var searchIbu = result[0].hoppieness;
+			var searchColor = result[0].color;
+			var searchStyle = result[0].style;
+			// var smell = result[0].smell; //we need a much larger db for this to work - removed for now
+		}
+// SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
+// '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
 
-// 			//based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
-// 	var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,  
-// 		function(err, result){
-// 			if(err) throw err;
-// 			for (var i = 0; i < result.length; i++) {
-// 				console.log("your beer matches with: " + result[i].name);
-// 			}
-// 		});	
-// 	});	
-// }
+ibuLimitHigh = searchIbu + 25;
+ibuLimitLow = searchIbu - 25;
+colorLimitHigh = searchColor + 2;
+colorLimitLow = searchColor - 2;
+
+			//based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
+	var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,  
+		function(err, result){
+			if(err) throw err;
+			for (var i = 0; i < result.length; i++) {
+				console.log("your beer matches with: " + result[i].name);
+			}
+		});	
+	});	
+}
 
 
 
