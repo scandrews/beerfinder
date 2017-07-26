@@ -75,10 +75,10 @@ var searchDB = function(){
 	findMeBeers();
 };
 
-exports.matchBeer = function(){
+exports.matchBeer = function(searchName){
 	var chosenBeerId = req.param.id;
 	//pull beer 1 from db and store in var
-	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:chosenBeerId}],
+	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{searchName}],
  	function(err, result){
 		if (err) throw err; 
 		for (var i = 0; i < result.length; i++) {

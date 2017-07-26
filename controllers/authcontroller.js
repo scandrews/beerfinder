@@ -41,3 +41,8 @@ exports.listAll = function(req, res){
   });
 }
 
+exports.findNew = function(req, res){
+	algorithms.matchbeer(req.body.matchName);
+	console.log("In the find new");
+
+}
