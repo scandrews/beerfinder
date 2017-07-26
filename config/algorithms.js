@@ -76,9 +76,9 @@ var searchDB = function(){
 };
 
 exports.matchBeer = function(searchName){
-	var chosenBeerId = req.param.id;
+	console.log("in matching beer - " + searchName);
 	//pull beer 1 from db and store in var
-	var selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{searchName}],
+	connection.query('SELECT * FROM beerTbl WHERE ?', [{name: searchName}],
  	function(err, result){
 		if (err) throw err; 
 		for (var i = 0; i < result.length; i++) {
@@ -98,12 +98,14 @@ colorLimitHigh = searchColor + 2;
 colorLimitLow = searchColor - 2;
 
 			//based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
-	var matchedBeers = connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,  
+	connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,  
 		function(err, result){
 			if(err) throw err;
 			for (var i = 0; i < result.length; i++) {
 				console.log("your beer matches with: " + result[i].name);
 			}
+			res.render('dashboard', { dbBeer: result });
+
 		});	
 	});	
 }

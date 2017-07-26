@@ -40,6 +40,7 @@ module.exports = (app, passport) => {
   });
 
   app.post("/findNew", function(req, res) {
+    console.log("at the find new post");
     authController.findNew(req, res);
   });
 
