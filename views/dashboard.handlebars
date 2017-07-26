@@ -83,25 +83,30 @@
 </div>
 
 <div class="modal fade" id="beerFinderModal" role="dialog">
-    <div class="modal-dialog">
+<div class="modal-dialog">
       <!-- Modal content-->
-      <div class="modal-content">
+    <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Beer Information:</h4>
+          <h4 class="modal-title">Beer to Match with:</h4>
+			<div class="input-group">
+  				<span class="input-group-addon" id="sizing-addon2">Beer:</span>
+  					<input type="text" class="form-control" placeholder="Beer to Match with" aria-describedby="sizing-addon2">
+			</div>
+					<form action="/findNew" method="POST">
+                        <input type="text" name="id" value="findNew">
+                        <button type="submit">Find Me A Matching Beer</button>
+                    </form>
         </div>
-        <div class="modal-body">
-            <div>
-              <h5>BEER NAME </h5>
-            
-           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
+            	<div>
+              		<h5>Matching Beers:</h5>
+           		</div>
+		<div class="modal-footer">
+		   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		</div>
     </div>
-  </div>
+</div>
+</div>
 
 
 
