@@ -39,6 +39,7 @@ app.use(passport.session());
 app.set('views', './views');
 
 app.engine( "handlebars", (exphbs({
+    helpers: { code: function(){return "WTF"} },
     defaultLayout: 'main'
   }))
 );

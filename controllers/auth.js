@@ -39,6 +39,14 @@ module.exports = (app, passport) => {
     authController.listAll(req, res);
   });
 
+  app.post("/findNew", function(req, res) {
+    authController.findNew(req, res);
+  });
+
+  app.post("/AddNew", function(req, res) {
+    console.log("got the add beer post");
+    res.render('addBeer');
+  });
 
 
   function isLoggedIn(req, res, next) {
