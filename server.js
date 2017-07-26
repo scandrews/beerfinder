@@ -1,81 +1,78 @@
-// The server file for Project 2 - the beer finder app
-'use strict';
-
-const passport = require('passport');
+// the server for the beer finder app
+const express = require('express');
+const app = express();
 const session = require('express-session');
-const env = require('dotenv').load();
+const passport = require('passport');
+const bodyParser = require('body-parser');
+// const env = require('dotenv').load();
+const exphbs = require('express-handlebars');
+const path = require('path');
+
+const PORT = 3000;
+
+// for including CSS
+// app.use(express.static('public'));
+
+// for BodyParser
+app.use(
+  bodyParser.urlencoded({
+  extended: true
+  })
+);
+
+app.use(bodyParser.json());
+
+// for Passport
+app.use(
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+// session secret
+app.use(passport.initialize());
+app.use(passport.session());
+
+// for Handlebars
+app.set('views', './views');
+
+app.engine( "handlebars", (exphbs({
+    helpers: { code: function(){return "WTF"} },
+    defaultLayout: 'main'
+  }))
+);
+
+app.set('view engine', 'handlebars');
+
+// Serve static content from the 'public' directory
+app.use(express.static("public"));
 
 
-// Models  -  from John's passport
+// Models
 const models = require('./models');
-// Requiring our models for syncing - from my stuff
-var db = require("./models");
 
-  
-// Node Package Dependencies
-var bodyParser = require("body-parser");
-var path = require("path");
-var methodOverride = require("method-override");
-var express = require("express");
-
-// Set up application dependencies
+// Routes
+const authRoute = require('./controllers/auth.js')(app, passport);
 var routes = require("./controllers/beer_controller.js");
 
-// Set up Express
-var app = express();
-// set up the port
-var PORT = process.env.PORT || 3000;
 
-// set up method override
-app.use(methodOverride("_method"));
+// load passport strategies
+require('./config/passport.js')(passport, models.user);
 
-
-// route for static data/pages
-// app.use(express.static("./public"));
-
-// For BodyParser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-app.use("/", routes);
-
-
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
-// Static directory
-// app.use(express.static("./public"));
-
-//------------------------
-// route for the style sheet
-app.get("/style", function(req, res){
-	res.sendFile(path.join(__dirname, "./public/css/style.css"));
-});
-
-// route for the image
-app.get("/url", function(req, res){
-	console.log("we got the image request");
-	res.sendFile(path.join(__dirname, "./public/images/burger.png"));
-});
-
-app.get('/', (req, res) => {
-	console.log("got the initial request in the server");
-	res.sendFile(path.join(__dirname, "./login.html"));
-
-  res.send('Welcome to Passport with Sequelize');
-});
-
-//------------------
-
-// This was from John's Passport server file
 // Sync Database
-// models.sequelize.sync().then(() => {
-// Syncing sequelize and start application
-db.sequelize.sync({ force: true }).then(function() {
-	app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
-	})
+models.sequelize
+  .sync()
+  .then(() => {
+    console.log('Nice! Database looks fine');
+  })
+  .catch((err) => {
+    console.log(err, 'Something went wrong with the Database Update!');
+  });
+
+app.listen(PORT, (err) => {
+  if (!err) {
+    console.log('Site is live listening on PORT', PORT);
+  } else console.log(err);
 });

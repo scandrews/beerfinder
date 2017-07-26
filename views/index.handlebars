@@ -1,0 +1,123 @@
+<div class="cotn_principal">
+  <div class="cont_centrar">
+    <div class="cont_login">
+
+      <div class="cont_info_log_sign_up">
+        <div class="col_md_login">
+          <div class="cont_ba_opcitiy">
+        
+            <h2>LOGIN</h2>  
+            <p>For existing users</p> 
+            <button class="btn_login" onclick="cambiar_login()">LOGIN</button>
+          </div>
+        </div>
+        <div class="col_md_sign_up">
+          <div class="cont_ba_opcitiy">
+            <h2>SIGN UP</h2>
+            <p>For new users</p>
+            <button class="btn_sign_up" onclick="cambiar_sign_up()">SIGN UP</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cont_forms" >
+
+        <div class="cont_form_login">
+          <a href="#" onclick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
+          <h2>LOGIN</h2>
+
+            <form id="signin" name="signin" method="post" action="signin">
+                <label for="email">Email Address</label>
+                <input class="text" name="email" placeholder="Email" type="text"/>
+                <label for="password">Password</label>
+                <input name="password" type="password" placeholder="Password" />
+                <input class="btn" type="submit" value="Sign In" />
+            </form>
+
+          <!-- this is the section that renders correctly but doesn't access the db -->
+          <!-- <form class=form-signin> -->
+  <!--         <form id="signin" name="signin" method="post" action="signin">
+              <input type="email" placeholder="Email" input type="submit"/>
+              <input type="password" placeholder="Password" />
+              <p class="forgot"><a href="https://codepen.io/tnmaysharma/full/KzLGOw/"><font color= "white">Forgot Password?</font></a></p>
+              <button class="btn_login" type="submit" >LOGIN</button>
+          </form> -->
+          <!-- end section that works but doesn't db -->
+
+        </div>
+        <div class="cont_form_sign_up">
+          <a href="#" onclick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+               <h2>SIGN UP</h2>
+
+          <!-- section coppied in from backup -->
+
+          <form id="signup" name="signup" method="post" action="/signup">
+              <label for="email">Email Address</label>
+              <input class="text" name="email" type="email" placeholder="Email" />
+              <label for="firstname">Firstname</label>
+              <input name="firstname" type="text" placeholder="User" />
+              <label for="lastname">Lastname</label>
+              <input name="lastname" type="text" placeholder="Lastname" />
+              <label for="password">Password</label>
+              <input name="password" type="password" />
+              <input class="btn" type="submit" value="Sign Up" />
+              <button class="btn_sign_up" type="submit" onclick="cambiar_sign_up()">SIGN UP</button>
+          </form>
+
+
+
+
+          <!-- this is the section from the working code -->
+  <!--         <form id="signup" name="signup" method="post" action="/signup">
+              <input type="email" placeholder="Email" />
+              <input type="text" placeholder="User" />
+              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Confirm Password" />
+              <button class="btn_sign_up" type="submit" onclick="cambiar_sign_up()">SIGN UP</button>
+          </form> -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function cambiar_login() {
+    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";  
+    document.querySelector('.cont_form_login').style.display = "block";
+    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
+
+    setTimeout(function(){  document.querySelector('.cont_form_login').style.opacity = "1"; },400);  
+
+    setTimeout(function(){    
+      document.querySelector('.cont_form_sign_up').style.display = "none";
+    },200);  
+  };
+
+  function cambiar_sign_up(at) {
+    document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
+    document.querySelector('.cont_form_sign_up').style.display = "block";
+    document.querySelector('.cont_form_login').style.opacity = "0";
+
+    setTimeout(function(){  document.querySelector('.cont_form_sign_up').style.opacity = "1";
+    },100);  
+
+    setTimeout(function(){   document.querySelector('.cont_form_login').style.display = "none";
+    },400);  
+  };    
+
+  function ocultar_login_sign_up() {
+    document.querySelector('.cont_forms').className = "cont_forms";  
+    document.querySelector('.cont_form_sign_up').style.opacity = "0";               
+    document.querySelector('.cont_form_login').style.opacity = "0"; 
+
+    setTimeout(function(){
+      document.querySelector('.cont_form_sign_up').style.display = "none";
+      document.querySelector('.cont_form_login').style.display = "none";
+    },500);  
+  };
+
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.js"></script>

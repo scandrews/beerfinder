@@ -2,7 +2,7 @@
 .sublime-workspace
 beerfinderProject.sublime-project
 beerfinderProject.sublime-workspace
-node_modules
+/node_modules
 .DS_Store
 .env
 .eslintrc.json
