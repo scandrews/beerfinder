@@ -42,7 +42,6 @@
                         <button type="submit">List All Beers</button>
                     </form>
 
-                    //--------------
 					<div class="col-md-3">
 						<h3>Find a New Beer</h3>
 						<hr>
@@ -94,7 +93,7 @@
   					<input type="text" class="form-control" placeholder="Beer to Match with" aria-describedby="sizing-addon2">
 			</div>
 					<form action="/findNew" method="POST">
-                        <input type="text" name="matchName" value="findNew">
+                        <input type="hidden" name="matchName" value="findNew">
                         <button type="submit">Find Me A Matching Beer</button>
                     </form>
         </div>
