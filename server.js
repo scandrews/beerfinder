@@ -1,24 +1,25 @@
+// the server for the beer finder app
 const express = require('express');
-
 const app = express();
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 // const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-
-const PORT = 3000;
 const path = require('path');
 
+const PORT = 3000;
+
 // for including CSS
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
-    extended: true
+  extended: true
   })
 );
+
 app.use(bodyParser.json());
 
 // for Passport
@@ -40,28 +41,21 @@ app.set('views', './views');
 app.engine( "handlebars", (exphbs({
     defaultLayout: 'main'
   }))
-
 );
+
 app.set('view engine', 'handlebars');
 
-// app.get('/', (req, res) => {
-//  // signin();
-//   res.send('Welcome to Passport with Sequelize');
-// });
-
-// Static directory
+// Serve static content from the 'public' directory
 app.use(express.static("public"));
 
-
-// app.use('/static', express.static(path.join(__dirname, 'public')));
 
 // Models
 const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
+var routes = require("./controllers/beer_controller.js");
 
-// Serve static content for the app from the 'public' directory in the application directory.
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);

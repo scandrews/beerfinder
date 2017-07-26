@@ -1,5 +1,5 @@
 var exports = module.exports = {};
-
+var algorithms = require("../config/algorithms.js");
 
 exports.signup = (req, res) => {
 	console.log("we're in the signUP authcontroller")
@@ -19,7 +19,11 @@ exports.signin = (req, res) => {
 
 exports.dashboard = (req, res) => {
 	console.log("we're in the dashboard authcontroller");
-  res.render('dashboard');
+	var junk = "string";
+	algorithms.getBeerOfTheDay(res, function(beerOTD){
+			console.log(beerOTD);
+			res.render('dashboard', beerOTD);
+	});
 };
 
 exports.logout = (req, res) => {
@@ -27,3 +31,13 @@ exports.logout = (req, res) => {
     res.redirect('/');
   });
 };
+
+exports.listAll = function(req, res){
+	console.log("we're in the / post");
+    algorithms.listAll(res, function(dbBeer){
+    	console.log(dbBeer)
+        // res.render('dashboard', dbBeer);
+          // res.json(dbBeer);
+  });
+}
+

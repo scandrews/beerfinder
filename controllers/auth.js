@@ -33,14 +33,18 @@ module.exports = (app, passport) => {
     successRedirect: '/dashboard',
 
     failureRedirect: '/signin',
-  }
+  }));
 
-  ));
+  app.post("/listAll", function(req, res) {
+    authController.listAll(req, res);
+  });
+
 
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
 
     res.redirect('/signin');
-  }
+  };
 };
+
