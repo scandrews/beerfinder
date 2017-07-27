@@ -75,7 +75,7 @@ var searchDB = function(){
 	findMeBeers();
 };
 
-exports.matchBeer = function(searchName){
+exports.matchBeer = function(res, searchName){
 	console.log("in matching beer - " + searchName);
 	//pull beer 1 from db and store in var
 	connection.query('SELECT * FROM beerTbl WHERE ?', [{name: searchName}],
@@ -104,8 +104,9 @@ colorLimitLow = searchColor - 2;
 			for (var i = 0; i < result.length; i++) {
 				console.log("your beer matches with: " + result[i].name);
 			}
-			res.render('dashboard', { dbBeer: result });
-
+			// res.json(result);
+			// res.render('dashboard', { modalBeer: result });
+			return result
 		});	
 	});	
 }
