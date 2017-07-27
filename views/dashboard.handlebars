@@ -93,12 +93,21 @@
   					<input type="text" class="form-control" placeholder="Beer to Match with" aria-describedby="sizing-addon2">
 			</div>
 					<form action="/findNew" method="POST">
-                        <input type="hidden" name="matchName" value="findNew">
+                        <textarea type="text" name="matchName"></textarea>
                         <button type="submit">Find Me A Matching Beer</button>
                     </form>
+
+<!-- 					<form action="/?_method=PUT" method="POST" class="button-size addBloc">
+					  <textarea type="text" name="burger_name"></textarea>
+					  <button type="submit">Add A New Burger</button>
+					</form>
+ -->
+
         </div>
             	<div>
               		<h5>Matching Beers:</h5>
+              		{{#each modalBeer}}
+              		{{/each}}
            		</div>
 		<div class="modal-footer">
 		   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
