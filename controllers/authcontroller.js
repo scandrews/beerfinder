@@ -43,7 +43,7 @@ exports.listAll = function(req, res){
 
 exports.findNew = function(req, res){
 	console.log("the start of find new");
-	algorithms.matchBeer(req.body.matchName);
+	algorithms.matchBeer(res, req.body.matchName);
 	console.log("In the find new");
 
 }
