@@ -88,9 +88,9 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Beer to Match with:</h4>
-					<form action="/findNew" method="POST" id="beerModalForm">
+					<!-- <form action="/findNew" method="POST" id="beerModalForm"> -->
                         <textarea type="text" name="matchName"></textarea>
-                        <button type="submit">Find Me A Matching Beer</button>
+                        <button type="submit" id="getTheDamThing">Find Me A Matching Beer</button>
                     </form>
 
 <!-- 					<form action="/?_method=PUT" method="POST" class="button-size addBloc">
@@ -118,41 +118,55 @@
 
 <script>
 
+$("getTheDamThing").on("click", function(){
+	var beerToGet = $(this).attr("matchName");
+	console.log(beerToGet);
+	$.ajax({
+          url: "/findNew",
+          method: "post"
+        })
+		.done(function(results){
+            alert("Data: " + results);
+        });
+});
+
+
+
 $("#addBeerBtn").on("click", function(e){
 	e.preventDefault();
 
 	console.log("we're in the click");
-	$("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
-	// $("#beerFinderModal").modal('toggle')
+	// $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
+	$("#beerFinderModal").modal('toggle')
 });
 
 
- $("#beerModalForm").on('submit', function(e){
-		e.preventDefault();
-		console.log('work dammit')
+ // $("#beerModalForm").on('submit', function(e){
+	// 	e.preventDefault();
+	// 	console.log('work dammit')
 		
-		$.post("/findNew",  function(data) {
-        console.log(data);
-        if (data) {
-        	console.log('data', data)
-          // $("#stats").show();
-          // $("#name").text(data.name);
-          // $("#role").text(data.role);
-          // $("#age").text(data.age);
-          // $("#force-points").text(data.forcePoints);
-        }
-        else {
-          // $("#name").text("The force is not strong with this one. Your character was not found.");
-          // $("#stats").hide();
-          console.log("no data")
-        }
-      });
+	// 	$.post("/findNew",  function(data) {
+ //        console.log(data);
+ //        if (data) {
+ //        	console.log('data', data)
+ //          // $("#stats").show();
+ //          // $("#name").text(data.name);
+ //          // $("#role").text(data.role);
+ //          // $("#age").text(data.age);
+ //          // $("#force-points").text(data.forcePoints);
+ //        }
+ //        else {
+ //          // $("#name").text("The force is not strong with this one. Your character was not found.");
+ //          // $("#stats").hide();
+ //          console.log("no data")
+ //        }
+ //      });
 
-	$( "div.modal.fade" ).addClass( "in" );
-	 // $("#beerFinderModal").modal({"backdrop":"static"} );
+	// $( "div.modal.fade" ).addClass( "in" );
+	//  // $("#beerFinderModal").modal({"backdrop":"static"} );
  
 
- });
+ // });
  	// $("#beerFinderModal").on('hide.bs.modal', function(e){
  	// 	console.log(e);
 		// e.preventDefault();
