@@ -105,8 +105,8 @@ colorLimitLow = searchColor - 2;
 				console.log("your beer matches with: " + result[i].name);
 			}
 			// res.json(result);
-			res.render('dashboard', { modalBeer: result });
-
+			// res.render('dashboard', { modalBeer: result });
+			return result
 		});	
 	});	
 }
