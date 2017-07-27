@@ -4,9 +4,9 @@ var connection = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	//your username
-	user: "scandrews",
+	user: "root",
 	//your password
-	password:"RutBud17",
+	password:"advictoriam",
 	database: "beer_db"
 
 });
@@ -27,7 +27,7 @@ exports.getBeerOfTheDay = function(res){
 				res.render('dashboard', { beers: beerOTD });
 
 				// return result[0].name;
-			});
+			}); //this is working without AJAX  7-27TG
 };
 
 
@@ -40,7 +40,7 @@ exports.listAll = function(res){
 		};
 		res.render('dashboard', { dbBeer: result });
 		// return result;
-	});//test works 7-19 TG
+	});//working currently 7-27 TG
 };
 
 //list the beers out by type
@@ -52,7 +52,7 @@ var listByType = function(){
 				console.log(result[i].name + '_____' + result[i].style);
 
 			}
-	});//test works 7-19 TG
+	});//test works 7-19 TG --not in use currently 7/27 TG
 };
 
 //search the db by name
@@ -73,7 +73,7 @@ var searchDB = function(){
 			});
 		}
 	findMeBeers();
-};
+}; //also not used in current iteration 7/27 TG
 
 exports.matchBeer = function(res, searchName){
 	console.log("in matching beer - " + searchName);
@@ -89,8 +89,6 @@ exports.matchBeer = function(res, searchName){
 			var searchStyle = result[0].style;
 			// var smell = result[0].smell; //we need a much larger db for this to work - removed for now
 		}
-// SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
-// '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
 
 ibuLimitHigh = searchIbu + 25;
 ibuLimitLow = searchIbu - 25;

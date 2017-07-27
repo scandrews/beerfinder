@@ -18,10 +18,8 @@
 	 				<ul>
 	 					{{#each dbBeer}}
 							<div class="col-xs-6 col-lg-4">
-								<h2>{{this.name}}</h2>
+								<h2 id="beerTitle" >{{this.name}}</h2>
 								<p>
-									<a class="btn btn-default" href="#" role="button"> View Details>
-									</a>
 								</p>
 							</div>
 						{{/each}}
@@ -113,7 +111,12 @@
     </div>
 </div>
 </div>
-
+<style type="text/css">
+	#beerTitle{
+		color:blue;
+		font-size: large;
+	}
+</style>
 
 
 <script>
@@ -132,18 +135,18 @@ $("getTheDamThing").on("click", function(){
 
 
 
-$("#addBeerBtn").on("click", function(e){
-	e.preventDefault();
+// $("#addBeerBtn").on("click", function(e){
+// 	e.preventDefault();
 
-	console.log("we're in the click");
-	// $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
-	$("#beerFinderModal").modal('toggle')
-});
+// 	console.log("we're in the click");
+	$("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
+// 	$("#beerFinderModal").modal('toggle')
+// });
 
 
- // $("#beerModalForm").on('submit', function(e){
-	// 	e.preventDefault();
-	// 	console.log('work dammit')
+//  $("#beerModalForm").on('submit', function(e, result){
+// 		e.preventDefault();
+
 		
 	// 	$.post("/findNew",  function(data) {
  //        console.log(data);
