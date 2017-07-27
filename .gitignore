@@ -6,3 +6,4 @@ beerfinderProject.sublime-workspace
 .DS_Store
 .env
 .eslintrc.json
+config/config.json
