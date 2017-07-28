@@ -1,4 +1,6 @@
 // the server for the beer finder app
+require('dotenv').config();
+
 const express = require('express');
 
 const app = express();
