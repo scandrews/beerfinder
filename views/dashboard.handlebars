@@ -164,6 +164,9 @@
 $('#MatchBeerBtn').on('click', function(){
 	$("#beerFinderModal").modal('toggle')
 });
+
+
+
 $('#getTheDamThing').on('click', function(){
 	$.post("/findNew",  function(results) {
 		 $("#beerMatchDiv").append(results.name);
