@@ -59,17 +59,17 @@ connection.connect((err) => {
     const prompt = 'Heady Topper';		 // this will store the users inputed search
     const findMeBeers = function () { // this is a general search function for the db - search by name
       const beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: prompt }],
-			  (err, result) => {
-          if (err) throw err;
-          console.log(`prompt:  ${prompt}`);
-          if (result.length == 0) {
-            console.log('nothing found');
-          } else {
-            for (let i = 0; i < result.length; i++) {
-              console.log(result[i].name);
-            }
+       (err, result) => {
+        if (err) throw err;
+        console.log(`prompt:  ${prompt}`);
+        if (result.length == 0) {
+          console.log('nothing found');
+        } else {
+          for (let i = 0; i < result.length; i++) {
+            console.log(result[i].name);
           }
-        });
+        }
+      });
     };
     findMeBeers();
   }; // also not used in current iteration 7/27 TG
@@ -78,7 +78,7 @@ connection.connect((err) => {
     console.log(`in matching beer - ${searchName}`);
     // pull beer 1 from db and store in var
     connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],
- 	(err, result) => {
+      (err, result) => {
         if (err) throw err;
         for (let i = 0; i < result.length; i++) {
           console.log(`matching beers to: ${result[0].name}`);
@@ -99,7 +99,8 @@ connection.connect((err) => {
           (err, result) => {
             if (err) throw err;
             for (let i = 0; i < result.length; i++) {
-              console.log(`your beer matches with: ${result[i].name}`);
+              console.log(`your beer matches with: ${result[i].name}`,
+                );
             }
             // res.json(result);
             // res.render('dashboard', { modalBeer: result });
