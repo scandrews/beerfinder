@@ -1,0 +1,130 @@
+<div class="container">
+	<h1></h1>
+
+	<div class= "row row-offcanvas row-offcanvas-right">
+
+		<div class="col-xs-12 col-sm-9">
+			<p class="pull-right visible-xs"></p>
+
+			<div class="jumbotron">
+				<h1>BEERS!</h1>
+				<p>The beer of the day is - {{ beers }} </p>
+			</div>
+
+				<div class="row">
+
+	<!-- 			BEER ROW!
+	 -->			
+	 				<ul>
+	 					{{#each dbBeer}}
+							<div class="col-xs-6 col-lg-4">
+								<h2>{{this.name}}</h2>
+								<p>
+									<a class="btn btn-default" href="#" role="button"> View Details>
+									</a>
+								</p>
+							</div>
+						{{/each}}
+					</ul>
+
+
+				</div>
+			</div>
+
+			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+			
+				<div class="list-group">
+
+					<a href="#" class="list-group-item warning">Link</a>
+
+					<form action="/listAll" method="POST">
+                        <input type="hidden" name="id" value="listAll">
+                        <button type="submit">List All Beers</button>
+                    </form>
+
+					<div class="col-md-3">
+						<h3>Find a New Beer</h3>
+						<hr>
+	  
+						<button class="btn btn-default" id="addBeerBtn">NEW Find a New Beer</button>
+					</div>
+
+
+
+					<p><a href="#" data-behaviour="modal" data-title="1 What's Your Favorite Beer?" data-content="1 content goes here">
+						Find Me A New Beer</a>
+					</p>
+
+
+					<form action="/findNew" method="POST">
+                        <input type="hidden" name="id" value="findNew">
+                        <button type="submit">Find Me A New Beer</button>
+                    </form>
+
+					<form action="/AddNew" method="POST">
+                        <input type="hidden" name="id" value="AddNew">
+                        <button type="submit">Add a New Beer</button>
+                    </form>
+
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+				
+				</div>
+		</div>
+
+	</div>
+
+
+</div>
+
+<div class="modal fade" id="beerFinderModal" role="dialog">
+<div class="modal-dialog">
+      <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Beer to Match with:</h4>
+			<div class="input-group">
+  				<span class="input-group-addon" id="sizing-addon2">Beer:</span>
+  					<input type="text" class="form-control" placeholder="Beer to Match with" aria-describedby="sizing-addon2">
+			</div>
+					<form action="/findNew" method="POST">
+                        <textarea type="text" name="matchName"></textarea>
+                        <button type="submit">Find Me A Matching Beer</button>
+                    </form>
+
+<!-- 					<form action="/?_method=PUT" method="POST" class="button-size addBloc">
+					  <textarea type="text" name="burger_name"></textarea>
+					  <button type="submit">Add A New Burger</button>
+					</form>
+ -->
+
+        </div>
+            	<div>
+              		<h5>Matching Beers:</h5>
+              		{{#each modalBeer}}
+              		{{/each}}
+           		</div>
+		<div class="modal-footer">
+		   <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		</div>
+    </div>
+</div>
+</div>
+
+
+
+<script>
+
+$("#addBeerBtn").on("click", function(){
+	console.log("we're in the click");
+	$("#beerFinderModal").modal("toggle")
+});
+
+
+
+</script>
