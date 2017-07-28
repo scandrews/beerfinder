@@ -19,7 +19,7 @@ module.exports = (app, passport) => {
   app.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/dashboard',
 
-    failureRedirect: '/signup',
+    failureRedirect: '/signup'
   }));
 
 
@@ -33,14 +33,26 @@ module.exports = (app, passport) => {
     successRedirect: '/dashboard',
 
     failureRedirect: '/signin',
-  }
+  }));
 
-  ));
+  app.post("/listAll", function(req, res) {
+    authController.listAll(req, res);
+  });
+
+  app.post("/findNew", function(req, res) {
+    authController.findNew(req, res);
+  });
+
+  app.post("/AddNew", function(req, res) {
+    console.log("got the add beer post");
+    res.render('addBeer');
+  });
 
 
   function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
 
     res.redirect('/signin');
-  }
+  };
 };
+

@@ -6,17 +6,50 @@ const path = require('path');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  console.log('got the initial passport request in the controller');
-  res.sendFile(path.join(__dirname, '../login.html'));
+var algorithms = require("../config/algorithms.js");
+
+
+// route for listing all beers
+// router.get('/showBeers', (req, res) => {
+//     console.log("We're in show beers");
+
+//     algorithms.listAll({ }).then((dbBeer) => {
+//       res.render('dashboard', dbBeer);
+//       		// res.json(dbBeer);
+//     });
+//   });
+
+router.post("/listAll", function(req, res) {
+    console.log("we're in the / post");
+    algorithms.listAll({ }).then((dbBeer) => {
+        res.render('dashboard', dbBeer);
+          // res.json(dbBeer);
+
+
+    // .then(function(dbBurger){
+    //   db.burger.findAll({  }).then(function(dbBurger) {
+    //     res.render("index", { burgers: dbBurger });
+    //         // res.json(dbBurger);
+    //   });     // res.json(dbBurger);
+
+    //       // res.redirect("/showBurgers");
+    //     });
 });
+});
+
+
+
+// router.get('/', (req, res) => {
+//   console.log('got the initial passport request in the controller');
+//   res.sendFile(path.join(__dirname, '../login.html'));
+// });
 
 // res.send('Welcome to Passport with Sequelize');
 
 // the original get from passport
 // app.get('/', (req, res) => {
-// 	console.log("got the initial request in the server");
-// 	res.sendFile(path.join(__dirname, "./login.html"));
+//  console.log("got the initial request in the server");
+//  res.sendFile(path.join(__dirname, "./login.html"));
 
 //   res.send('Welcome to Passport with Sequelize');
 // });
@@ -24,17 +57,17 @@ router.get('/', (req, res) => {
 
 // routes for functionality
 // route for the initial startup/login screen
-router.get('/login', (req, res) => {
-  console.log("We're in the user login");
-  res.sendFile(path.join(__dirname, '../index.html'));
+// router.get('/login', (req, res) => {
+//   console.log("We're in the user login");
+//   res.sendFile(path.join(__dirname, '../index.html'));
 
-  // res.render("login")
-});
+//   // res.render("login")
+// });
 
-// This route logs in customer
-router.post('/user', (req, res) => {
-  console.log("we're in the user post");
-  console.log(req.body.cust_name);
+// // This route logs in customer
+// router.post('/user', (req, res) => {
+//   console.log("we're in the user post");
+//   console.log(req.body.cust_name);
 
   // check the db for that user
   // if not in db - create
@@ -43,29 +76,17 @@ router.post('/user', (req, res) => {
   //    return isting of beers
 
 
-  // route for listing all beers
-  router.put('/showBeers', (req, res) => {
-    console.log("We're in show beers");
-
-
-    db.beerTbl.findAll({ }).then((dbBeer) => {
-      res.render('index');
-      		// res.json(dbBeer);
-    });
-  });
-
-
-  // this route creates new beers
-  router.put('/', (req, res) => {
+// this route creates new beers
+router.put('/', (req, res) => {
     console.log("we're in the beer put");
 
 
     db.beerTbl.create({
       name: req.body.name,
       id: currentUserId,
-    }).then((dbBurger) => {
+    }).then((dbBeer) => {
       console.log(customerId);
-      db.beerTbl.findAll({ }).then((dbbeer) => {
+      db.beerTbl.findAll({ }).then((dbBeer) => {
 
 	      		// res.json(dbBeer);
       });
@@ -73,24 +94,24 @@ router.post('/user', (req, res) => {
   });
 
 
-  db.customer.create(req.body).then((dbBeer) => {
-    db.user.findAll({
-      where: {
-        user_name: req.body.cust_name,
-      } }).then((currentUser) => {
-      console.log(currentUser);
-      console.log('----------------');
-      console.log(currentUser.id);
-      currentUserId = currentUser.id;
-    })
-      .then((dbBeer) => {
-        // need to return data here
-        res.redirect('/');
-        res.render('index');
-      		// res.json(dbBeer);
-      });
-  });
-});
+  // db.customer.create(req.body).then((dbBeer) => {
+  //   db.user.findAll({
+  //     where: {
+  //       user_name: req.body.cust_name,
+  //     } }).then((currentUser) => {
+  //     console.log(currentUser);
+  //     console.log('----------------');
+  //     console.log(currentUser.id);
+  //     currentUserId = currentUser.id;
+  //   })
+  //     .then((dbBeer) => {
+  //       // need to return data here
+  //       res.redirect('/');
+  //       res.render('index');
+  //     		// res.json(dbBeer);
+  //     });
+  // });
+
 
 
 router.post('/', (req, res) => {

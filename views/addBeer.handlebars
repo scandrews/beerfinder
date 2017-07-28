@@ -1,0 +1,55 @@
+<div class="container">
+  <h1></h1>
+
+  <div class= "row row-offcanvas row-offcanvas-right">
+
+    <div class="col-xs-12 col-sm-9">
+      <p class="pull-right visible-xs"></p>
+
+      <div class="jumbotron">
+        <h1>BEERS!</h1>
+      </div>
+
+    </div>
+    <div class="cont_form_sign_up">
+      <h2>Add a New Beer</h2>
+
+      <!-- section coppied in from backup -->
+      <!-- This section works - creates a new user and enters them in the database -->
+
+      <form id="addBeer" name="signup" method="post" action="/signup">
+          <label for="beername">Beername</label>
+          <input name="beername" type="text" placeholder="New Beer" />
+          <label for="color">beercolor</label>
+          <input name="beercolor" type=int placeholder="Beer Color" />
+          <label for="IBU">Hoppiness</label>
+          <input name="beerhop" type=int placeholder="Hoppiness" />
+          <label for="style">Style</label>
+          <input name="style" type="style" placeholder="Beer Style"/>
+          <label for="smell">Beer Smell</label>
+          <input name="smell" type="smell" placeholder="Beer Smell"/>
+          <label for="feel">Beer Feel</label>
+          <input name="feel" type="feel" placeholder="Beer Feel"/>
+          <input class="btn" type="submit" value="Add New Beer" />
+          <button class="btn_add_beer" type="submit" onclick="cambiar_sign_up()">Add New Beer</button>
+      </form>
+
+
+      <!-- this is the section from the working code -->
+      <!-- This looks great but does not enter the user into the data base -->
+
+      <!--         <form id="signup" name="signup" method="post" action="/signup">
+          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="User" />
+          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Confirm Password" />
+          <button class="btn_sign_up" type="submit" onclick="cambiar_sign_up()">SIGN UP</button>
+          </form> -->
+
+    </div>
+  </div>
+
+    </div>
+  </div>
+</div>
+

@@ -1,33 +1,34 @@
+// the server for the beer finder app
 const express = require('express');
-
 const app = express();
-const passport = require('passport');
 const session = require('express-session');
+const passport = require('passport');
 const bodyParser = require('body-parser');
 // const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
-
-const PORT = 3000;
 const path = require('path');
 
-// Serve static content for the app from the 'public' directory in the application directory for CSS
-app.use(express.static('public'));
+const PORT = 3000;
+
+// for including CSS
+// app.use(express.static('public'));
 
 // for BodyParser
 app.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
+  bodyParser.urlencoded({
+  extended: true
+  })
 );
+
 app.use(bodyParser.json());
 
 // for Passport
 app.use(
-    session({
-        secret: 'keyboard cat',
-        resave: true,
-        saveUninitialized: true
-    })
+  session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+  })
 );
 
 // session secret
@@ -38,39 +39,37 @@ app.use(passport.session());
 app.set('views', './views');
 
 app.engine("handlebars", (exphbs({
-        defaultLayout: 'main'
-    }))
-
+    helpers: { code: function(){return "WTF"} },
+    defaultLayout: 'main'
+  }))
 );
+
 app.set('view engine', 'handlebars');
 
-// app.get('/', (req, res) => {
-//  // signin();
-//   res.send('Welcome to Passport with Sequelize');
-// });
+// Serve static content from the 'public' directory
+app.use(express.static("public"));
+
 
 // Models
 const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
+var routes = require('./controllers/beer_controller.js');
 
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);
 
 // Sync Database
-models.sequelize
-    .sync()
-    .then(() => {
-        console.log('Nice! Database looks fine');
-    })
-    .catch((err) => {
-        console.log(err, 'Something went wrong with the Database Update!');
-    });
+models.sequelize.sync().then(() => {
+    console.log('Nice! Database looks fine');
+  }).catch((err) => {
+    console.log(err, 'Something went wrong with the Database Update!');
+  });
 
 app.listen(PORT, (err) => {
-    if (!err) {
-        console.log('Site is live listening on PORT', PORT);
-    } else console.log(err);
+  if (!err) {
+    console.log('Site is live listening on PORT', PORT);
+  } else console.log(err);
 });

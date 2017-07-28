@@ -1,18 +1,29 @@
 var exports = module.exports = {};
-
+var algorithms = require("../config/algorithms.js");
 
 exports.signup = (req, res) => {
-  res.render('index');
+	console.log("we're in the signUP authcontroller")
+  res.render('dashboard');
 };
 
 exports.signin = (req, res) => {
-	console.log("we're in the authcontroller")
+	console.log("we're in the signIN authcontroller")
   res.render('index');
 };
 
+// exports.signin = (req, res) => {
+// 	console.log("we're in the authcontroller")
+//   res.render('index');
+// };
+
 
 exports.dashboard = (req, res) => {
-  res.render('dashboard');
+	console.log("we're in the dashboard authcontroller");
+	var junk = "string";
+	algorithms.getBeerOfTheDay(res, function(beerOTD){
+			console.log(beerOTD);
+			res.render('dashboard', beerOTD);
+	});
 };
 
 exports.logout = (req, res) => {
@@ -20,3 +31,13 @@ exports.logout = (req, res) => {
     res.redirect('/');
   });
 };
+
+exports.listAll = function(req, res){
+	console.log("we're in the / post");
+    algorithms.listAll(res, function(dbBeer){
+    	console.log(dbBeer)
+        // res.render('dashboard', dbBeer);
+          // res.json(dbBeer);
+  });
+}
+
