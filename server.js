@@ -3,6 +3,7 @@ const express = require('express');
 
 const app = express();
 const session = require('express-session');
+const nodemon = require('nodemon');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 
@@ -10,7 +11,7 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const path = require('path');
 
-const PORT = 8000;
+const PORT = 4000;
 
 // for including CSS
 // app.use(express.static('public'));
@@ -18,7 +19,7 @@ const PORT = 8000;
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: true
   }),
 );
 
@@ -29,7 +30,7 @@ app.use(
   session({
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: true
   }),
 );
 
@@ -42,7 +43,7 @@ app.set('views', './views');
 
 app.engine('handlebars', (exphbs({
   helpers: { code() { return 'WTF'; } },
-  defaultLayout: 'main',
+  defaultLayout: 'main'
 })),
 );
 

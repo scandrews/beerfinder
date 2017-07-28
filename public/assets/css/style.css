@@ -11,15 +11,16 @@ body {
 }
 
 .my-jumbotron {
-    background-color: transparent !important;
+    background-color: !important;
     color: whitesmoke;
     font-size: 25px;
     font-family: roboto mono;
     padding-bottom: 25px;
+    font-style: italic;
 }
 
 .btn.btn-block {
-    background-color: darkorange;
+    background-color: peru;
     color: ghostwhite;
     border-color: black;
     font-family: roboto;
@@ -29,10 +30,8 @@ body {
 
 h1, h2 {
     color: antiquewhite;
-    padding-top: 40px;
-    font-family: Comic sans;
+    padding-top: 45px;
     padding-bottom: 20px;
-    outline-color: ora;
 }
 
 .list-group-item {
