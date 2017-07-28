@@ -168,11 +168,13 @@ $('#MatchBeerBtn').on('click', function(){
 
 
 $('#getTheDamThing').on('click', function(){
-	$.post("/findNew",  function(results) {
-		 $("#beerMatchDiv").append(results.name);
-         $("#beerMatchDiv").append(results.hoppieness);
-         $("#beerMatchDiv").append('<hr>' + "<br>");
-    });     
+	// $.post("/findNew",  function(results) {
+	// 	 $("#beerMatchDiv").append(results.name);
+ //         $("#beerMatchDiv").append(results.hoppieness);
+ //         $("#beerMatchDiv").append('<hr>' + "<br>");
+ //    });     
+
+
 });
 //current error is that this is directing nothing to the DB to match against, therefore due to the math 
 //involved on the backend, it will return an NaN error  - TG
