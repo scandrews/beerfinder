@@ -22,7 +22,7 @@ module.exports = (passport, user) => {
 
     ((req, email, password, done) => {
       const generateHash = password => bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-      
+
 
       User.findOne({
         where: {
@@ -124,8 +124,8 @@ module.exports = (passport, user) => {
             message: 'Something went wrong with your Signin',
           });
         });
-      })
+      }),
 
-    ))
+    )),
   ));
 };

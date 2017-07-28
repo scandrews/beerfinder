@@ -6,7 +6,7 @@ const path = require('path');
 
 const router = express.Router();
 
-var algorithms = require("../config/algorithms.js");
+const algorithms = require('../config/algorithms.js');
 
 
 // route for listing all beers
@@ -19,11 +19,11 @@ var algorithms = require("../config/algorithms.js");
 //     });
 //   });
 
-router.post("/listAll", function(req, res) {
-    console.log("we're in the / post");
-    algorithms.listAll({ }).then((dbBeer) => {
-        res.render('dashboard', dbBeer);
-          // res.json(dbBeer);
+router.post('/listAll', (req, res) => {
+  console.log("we're in the / post");
+  algorithms.listAll({ }).then((dbBeer) => {
+    res.render('dashboard', dbBeer);
+    // res.json(dbBeer);
 
 
     // .then(function(dbBurger){
@@ -34,9 +34,8 @@ router.post("/listAll", function(req, res) {
 
     //       // res.redirect("/showBurgers");
     //     });
+  });
 });
-});
-
 
 
 // router.get('/', (req, res) => {
@@ -69,49 +68,48 @@ router.post("/listAll", function(req, res) {
 //   console.log("we're in the user post");
 //   console.log(req.body.cust_name);
 
-  // check the db for that user
-  // if not in db - create
+// check the db for that user
+// if not in db - create
 
-  // if user is aready in db
-  //    return isting of beers
+// if user is aready in db
+//    return isting of beers
 
 
 // this route creates new beers
 router.put('/', (req, res) => {
-    console.log("we're in the beer put");
+  console.log("we're in the beer put");
 
 
-    db.beerTbl.create({
-      name: req.body.name,
-      id: currentUserId,
-    }).then((dbBeer) => {
-      console.log(customerId);
-      db.beerTbl.findAll({ }).then((dbBeer) => {
+  db.beerTbl.create({
+    name: req.body.name,
+    id: currentUserId,
+  }).then((dbBeer) => {
+    console.log(customerId);
+    db.beerTbl.findAll({ }).then((dbBeer) => {
 
 	      		// res.json(dbBeer);
-      });
     });
   });
+});
 
 
-  // db.customer.create(req.body).then((dbBeer) => {
-  //   db.user.findAll({
-  //     where: {
-  //       user_name: req.body.cust_name,
-  //     } }).then((currentUser) => {
-  //     console.log(currentUser);
-  //     console.log('----------------');
-  //     console.log(currentUser.id);
-  //     currentUserId = currentUser.id;
-  //   })
-  //     .then((dbBeer) => {
-  //       // need to return data here
-  //       res.redirect('/');
-  //       res.render('index');
-  //     		// res.json(dbBeer);
-  //     });
-  // });
-
+// db.customer.create(req.body).then((dbBeer) => {
+//   db.user.findAll({
+//     where: {
+//       user_name: req.body.cust_name,
+//     } }).then((currentUser) => {
+//     console.log(currentUser);
+//     console.log('----------------');
+//     console.log(currentUser.id);
+//     currentUserId = currentUser.id;
+//   })
+//     .then((dbBeer) => {
+//       // need to return data here
+//       res.redirect('/');
+//       res.render('index');
+//     		// res.json(dbBeer);
+//     });
+// });
 
 
 router.post('/', (req, res) => {

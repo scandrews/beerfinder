@@ -27,7 +27,7 @@ connection.connect((err) => {
         res.render('dashboard', { beers: beerOTD });
 
         // return result[0].name;
-      });
+      }); // this is working without AJAX  7-27TG
   };
 
 
@@ -40,7 +40,7 @@ connection.connect((err) => {
       }
       res.render('dashboard', { dbBeer: result });
       // return result;
-    });// test works 7-19 TG
+    });// working currently 7-27 TG
   };
 
   // list the beers out by type
@@ -51,7 +51,7 @@ connection.connect((err) => {
       for (let i = 0; i < result.length; i++) {
         console.log(`${result[i].name}_____${result[i].style}`);
       }
-    });// test works 7-19 TG
+    });// test works 7-19 TG --not in use currently 7/27 TG
   };
 
   // search the db by name
@@ -72,12 +72,12 @@ connection.connect((err) => {
         });
     };
     findMeBeers();
-  };
+  }; // also not used in current iteration 7/27 TG
 
-  exports.matchBeer = function () {
-    const chosenBeerId = req.param.id;
+  exports.matchBeer = function (res, searchName) {
+    console.log(`in matching beer - ${searchName}`);
     // pull beer 1 from db and store in var
-    const selectedBeer = connection.query('SELECT * FROM beerTbl WHERE ?', [{ id: chosenBeerId }],
+    connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],
  	(err, result) => {
         if (err) throw err;
         for (let i = 0; i < result.length; i++) {
@@ -88,8 +88,6 @@ connection.connect((err) => {
           const searchStyle = result[0].style;
           // var smell = result[0].smell; //we need a much larger db for this to work - removed for now
         }
-        // SELECT * FROM MyTable WHERE (Column1 LIKE '%keyword1%' OR Column2 LIKE 
-        // '%keyword1%') AND (Column1 LIKE '%keyword2%' OR Column2 LIKE '%keyword2%');
 
         ibuLimitHigh = searchIbu + 25;
         ibuLimitLow = searchIbu - 25;
@@ -97,12 +95,15 @@ connection.connect((err) => {
         colorLimitLow = searchColor - 2;
 
         // based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
-        const matchedBeers = connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
+        connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
           (err, result) => {
             if (err) throw err;
             for (let i = 0; i < result.length; i++) {
               console.log(`your beer matches with: ${result[i].name}`);
             }
+            // res.json(result);
+            // res.render('dashboard', { modalBeer: result });
+            return result;
           });
       });
   };
