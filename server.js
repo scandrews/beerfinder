@@ -1,14 +1,16 @@
 // the server for the beer finder app
 const express = require('express');
+
 const app = express();
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+
 // const env = require('dotenv').load();
 const exphbs = require('express-handlebars');
 const path = require('path');
 
-const PORT = 3000;
+const PORT = 8000;
 
 // for including CSS
 // app.use(express.static('public'));
@@ -16,7 +18,7 @@ const PORT = 3000;
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
-  extended: true
+    extended: true,
   })
 );
 
@@ -27,7 +29,7 @@ app.use(
   session({
     secret: 'keyboard cat',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
   })
 );
 
@@ -38,16 +40,16 @@ app.use(passport.session());
 // for Handlebars
 app.set('views', './views');
 
-app.engine( "handlebars", (exphbs({
-    helpers: { code: function(){return "WTF"} },
-    defaultLayout: 'main'
-  }))
+app.engine('handlebars', (exphbs({
+  helpers: { code() { return 'WTF'; } },
+  defaultLayout: 'main'
+}))
 );
 
 app.set('view engine', 'handlebars');
 
 // Serve static content from the 'public' directory
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 
 // Models
@@ -55,7 +57,7 @@ const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
-var routes = require("./controllers/beer_controller.js");
+const routes = require('./controllers/beer_controller.js');
 
 
 // load passport strategies

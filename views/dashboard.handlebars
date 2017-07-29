@@ -1,117 +1,227 @@
 <div class="container">
-	<h1></h1>
+    <div class="row row-offcanvas row-offcanvas-right">
+        <div class="col-xs-12 col-sm-9">
+            <p class="pull-right visible-xs"></p>
+            <div class="my-jumbotron">
+                <h1>BEERS!</h1>
+                <p>The beer of the day is - {{ beers }} </p>
+            </div>
+            <div class="row">
+                <!--      BEER ROW!
+   -->
+                <ul>
+                    {{#each dbBeer}}
+                    <div class="col-m-4 col-sm-4 col-xs-4">
+                        <p>
+                            <div class="btn btn-block" href="#" role="button"> {{this.name}}
+                            </div>
+                        </p>
+                    </div>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+            <div class="list-group">
+                <form action="/listAll" method="POST">
+                    <input type="hidden" name="id" value="listAll">
+                    <button class="btn btn-submit" type="submit">List All Beers</button>
+                </form>
 
-	<div class= "row row-offcanvas row-offcanvas-right">
+                
+                  <div class="list-group">
+                  <a href="#" class="list-group-item active" id="MatchBeerBtn">BEER SEARCH</a>
 
-		<div class="col-xs-12 col-sm-9">
-			<p class="pull-right visible-xs"></p>
+                  <form href="#" class="list-group-item" type="hidden" id="listAll" action="/listAll" method="POST">List All Beers</a>
+                  </form>
 
-			<div class="jumbotron">
-				<h1>BEERS!</h1>
-				<p>The beer of the day is - {{ beers }} </p>
-			</div>
+                  <a href="#" class="list-group-item">Item 3</a>
+                </div> 
+                </div>
 
-				<div class="row">
-
-	<!-- 			BEER ROW!
-	 -->			
-	 				<ul>
-	 					{{#each dbBeer}}
-							<div class="col-xs-6 col-lg-4">
-								<h2>{{this.name}}</h2>
-								<p>
-									<a class="btn btn-default" href="#" role="button"> View Details>
-									</a>
-								</p>
-							</div>
-						{{/each}}
-					</ul>
-
-
-				</div>
-			</div>
-
-			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-			
-				<div class="list-group">
-
-					<a href="#" class="list-group-item warning">Link</a>
-
-					<form action="/listAll" method="POST">
-                        <input type="hidden" name="id" value="listAll">
-                        <button type="submit">List All Beers</button>
-                    </form>
-
-                    //--------------
-					<div class="col-md-3">
-						<h3>Find a New Beer</h3>
-						<hr>
-	  
-						<button class="btn btn-default" id="addBeerBtn">NEW Find a New Beer</button>
-					</div>
-
-
-
-					<p><a href="#" data-behaviour="modal" data-title="1 What's Your Favorite Beer?" data-content="1 content goes here">
-						Find Me A New Beer</a>
-					</p>
-
-
-					<form action="/findNew" method="POST">
-                        <input type="hidden" name="id" value="findNew">
-                        <button type="submit">Find Me A New Beer</button>
-                    </form>
-
-					<form action="/AddNew" method="POST">
-                        <input type="hidden" name="id" value="AddNew">
-                        <button type="submit">Add a New Beer</button>
-                    </form>
-
-				</div>
-			</div>
-
-			<div class="row">
-
-				<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-				
-				</div>
-		</div>
-
-	</div>
-
-
+                {{!--
+                <form action="/findNew" method="POST">
+                    <input type="hidden" name="id" value="findNew">
+                    <button class="btn btn-submit" type="submit">Find Me A New Beer</button>
+                </form> --}} {{!--
+                <form action="/AddNew" method="POST">
+                    <input type="hidden" name="id" value="AddNew"> --}}
+                    <button id="addBeerBtn" class="btn btn-submit" type="submit">Add a New Beer</button>
+                    {{!-- </form> --}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+            </div>
+        </div>
+    </div>
 </div>
-
 <div class="modal fade" id="beerFinderModal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Beer Information:</h4>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form action="/findNew" method="POST" id="beerModalForm">
+                    <textarea type="text" name="matchName" placeholder="enter the beer you're hoping to match"></textarea>
+                    <button type="button" class="btn btn-info small" id="getTheDamThing">Search!</button>
+                </form>
+            </div>
+            <div id="beerMatchDiv">
+                <h5>Search RESULTS:</h5> {{#each modalBeer}}
+                <br>
+                <h3>{{this.name}}</h3> {{/each}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
         </div>
-        <div class="modal-body">
-            <div>
-              <h5>BEER NAME </h5>
-            
-           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+{{!-- Modal for the add new beer form --}}
+<div class="modal fade" id="beerAddModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add a beer to the data base</h2>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+            {{!-- Entry Form Goes HERE --}}
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="newBeerName"></label>
+                    <input type="text" class="form-control" id="newBeerName" placeholder="NAME">
+                </div>
+                <div class="form-group">
+                    <label for="newBeerIbu"></label>
+                    <input type="newIbu" class="form-control" id="newBeerIbu" placeholder="IBU">
+                </div>
+                <div class="form-group">
+                    <label for="newBeerColor"></label>
+                    <input type="newColor" class="form-control" id="newBeerColor" placeholder="COLOR">
+                </div>
+                <div class="form-group">
+                    <label for="newBeerSmell"></label>
+                    <input type="newSmell" class="form-control" id="newBeerSmell" placeholder="SMELL">
+                </div>
+                <div class="form-group">
+                    <label for="newBeerType"></label>
+                    <input type="newType" class="form-control" id="newBeerType" placeholder="TYPE">
+                </div>
+                <div class="form-group">
+                    <label for="newBeerFeel"></label>
+                    <input type="newFeel" class="form-control" id="newBeerFeel" placeholder="TEXTURE">
+                </div>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+#beerTitle {
+    color: blue;
+    font-size: large;
+}
 
-
-
+#findNewDivTitle {
+    color: white;
+}
+</style>
 <script>
-
-$("#addBeerBtn").on("click", function(){
-	console.log("we're in the click");
-	$("#beerFinderModal").modal("toggle")
+$('#MatchBeerBtn').on('click', function() {
+    $("#beerFinderModal").modal('toggle')
+});
+$('#getTheDamThing').on('click', function() {
+    $.post("/findNew", function(results) {
+        $("#beerMatchDiv").append(results.name);
+        $("#beerMatchDiv").append(results.hoppieness);
+        $("#beerMatchDiv").append('<hr>' + "<br>");
+    });
+});
+//current error is that this is directing nothing to the DB to match against, therefore due to the math 
+//involved on the backend, it will return an NaN error  - TG
+// $("#addBeerBtn").on("click", function(){
+//  var beerToGet = $(this).attr("matchName");
+//  console.log(beerToGet);
+//  $.ajax({
+//           url: "/findNew",
+//           method: "post"
+//         })
+//    .done(function(results){
+//             alert("Data: " + results);
+//         });
+// });
+//trigger for add beer button to launch add modal
+$("#addBeerBtn").on("click", function() {
+    $("#beerAddModal").modal("toggle");
 });
 
+// $("#addNewBeerBtn").on("click", function(){
+//     // e.preventDefault();
+//     console.log("we're in the add beer click");
+//     var newBeer = $("#newBeerName");
+//     console.log(newBeer);
+
+    // var NewBeerObj = {
+    //     name: $("#newBeerName").val().trim(),
+    //     color: $("#newBeercolor").val().trim(),
+    //     hoppieness: $("#newBeerIbu").val().trim(),
+    //     style: $("#newBeerType").val().trim(),
+    //     smell: $("#newBeerSmell").val().trim(),
+    //     feel: $("#newBeerFeel").val().trim()
+    // };
+    // console.log(NewBeerObj);
+
+//     var NewBeerObj = {
+//         name: "New Beer",
+//         color: 3,
+//         hoppieness: 30,
+//         style: "Pilsner",
+//         smell: "Bland",
+//         feel: "light"};
+        
+//     console.log(NewBeerObj);
 
 
+// $.post("/addBeer", newBeerObj, function())
+
+// });
+
+
+// $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
+//  $("#beerFinderModal").modal('toggle')
+// });
+//  $("#beerModalForm").on('submit', function(e, result){
+//    e.preventDefault();
+
+//  $.post("/addBeer",  function(data) {
+//        console.log(data);
+//        if (data) {
+//         console.log('data', data)
+//          // $("#stats").show();
+//          // $("#name").text(data.name);
+//          // $("#role").text(data.role);
+//          // $("#age").text(data.age);
+//          // $("#force-points").text(data.forcePoints);
+//        }
+//        else {
+//          // $("#name").text("The force is not strong with this one. Your character was not found.");
+//          // $("#stats").hide();
+//          console.log("no data")
+//        }
+//      });
+// $( "div.modal.fade" ).addClass( "in" );
+//  // $("#beerFinderModal").modal({"backdrop":"static"} );
+
+// });
+// $("#beerFinderModal").on('hide.bs.modal', function(e){
+//  console.log(e);
+// e.preventDefault();
+// })
 </script>
