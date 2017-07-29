@@ -57,7 +57,6 @@ const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
-const routes = require('./controllers/beer_controller.js');
 
 
 // load passport strategies

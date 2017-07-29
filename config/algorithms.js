@@ -75,36 +75,41 @@ connection.connect((err) => {
   }; // also not used in current iteration 7/27 TG
 
   exports.matchBeer = function (res, searchName) {
-    console.log(`in matching beer - ${searchName}`);
-    // pull beer 1 from db and store in var
-    connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],
- 	(err, result) => {
-        if (err) throw err;
-        for (let i = 0; i < result.length; i++) {
-          console.log(`matching beers to: ${result[0].name}`);
-          // grabbing selected beer identifiers to match with
-          var searchIbu = result[0].hoppieness;
-          var searchColor = result[0].color;
-          const searchStyle = result[0].style;
-          // var smell = result[0].smell; //we need a much larger db for this to work - removed for now
+      console.log("in algorithms, matching beer - " + searchName);
+      console.log(`in matching beer - ${searchName}`);
+      // pull beer 1 from db and store in var
+      connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],	(err, result) => {
+        if (result.length === 0){
+            console.log("that wasn't in the database");
+            res.redirect('dashboard', { modalBeer: searchName });
+        }else{
+
+          for (let i = 0; i < result.length; i++) {
+              console.log(`matching beers to: ${result[0].name}`);
+              // grabbing selected beer identifiers to match with
+              var searchIbu = result[0].hoppieness;
+              var searchColor = result[0].color;
+              const searchStyle = result[0].style;
+              // var smell = result[0].smell; //we need a much larger db for this to work - removed for now
+              };
+
+          ibuLimitHigh = searchIbu + 25;
+          ibuLimitLow = searchIbu - 25;
+          colorLimitHigh = searchColor + 2;
+          colorLimitLow = searchColor - 2;
+
+          // based on stats from beer 1 identify matching beers  searchIbu -25,'AND', searchIbu + 25,
+          connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
+            (err, result) => {
+                if (err) throw err;
+                for (let i = 0; i < result.length; i++) {
+                  console.log(`your beer matches with: ${result[i].name}`);
+                }
+                // res.json(result);
+                res.render('dashboard', { modalBeer: result });
+                // return result;
+            });
         }
-
-        ibuLimitHigh = searchIbu + 25;
-        ibuLimitLow = searchIbu - 25;
-        colorLimitHigh = searchColor + 2;
-        colorLimitLow = searchColor - 2;
-
-        // based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
-        connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
-          (err, result) => {
-            if (err) throw err;
-            for (let i = 0; i < result.length; i++) {
-              console.log(`your beer matches with: ${result[i].name}`);
-            }
-            // res.json(result);
-            // res.render('dashboard', { modalBeer: result });
-            return result;
-          });
       });
   };
 
@@ -121,6 +126,7 @@ connection.connect((err) => {
       // return result;
     });// working currently 7-27 TG
   };
+
 
 
 // my sql .escape makes usre the variable you're using is ok to use with SQL
