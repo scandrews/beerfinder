@@ -4,9 +4,9 @@ const connection = mysql.createConnection({
   host: 'localhost',
   port: 3306,
   // your username
-  user: 'scandrews',
+  user: 'root',
   // your password
-  password: 'RutBud17',
+  password: 'advictoriam',
   database: 'beer_db',
 
 });
@@ -95,7 +95,7 @@ connection.connect((err) => {
         colorLimitLow = searchColor - 2;
 
         // based on stats from beer 1 identify matching beers	 searchIbu -25,'AND', searchIbu + 25,
-        connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
+        connection.query('SELECT * FROM beerTbl WHERE hoppieness BETWEEN ' + ibuLimitLow + ' AND ' + ibuLimitHigh + ' AND ' + colorLimitLow + ' AND ' + colorLimitHigh,
           (err, result) => {
             if (err) throw err;
             for (let i = 0; i < result.length; i++) {
