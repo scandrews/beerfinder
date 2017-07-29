@@ -48,3 +48,8 @@ exports.findNew = function (req, res) {
   // console.log('In the find new');
   // res.json(results);
 };
+
+exports.addBeer = function (req, res) {
+  console.log("got ot authcontroller");
+  algorithms.addNewBeer(req, res);
+}

@@ -81,7 +81,15 @@ connection.connect((err) => {
       connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],	(err, result) => {
         if (result.length === 0){
             console.log("that wasn't in the database");
-            res.redirect('dashboard', { modalBeer: searchName });
+            const beersNotHere = searchName;
+            console.log(beersNotHere);
+            res.render('dashboardnobeer', { notHere: searchName });
+
+        // const beerOTD = result[0].name;
+        // res.render('dashboard', { beers: beerOTD });
+
+
+
         }else{
 
           for (let i = 0; i < result.length; i++) {
@@ -115,9 +123,11 @@ connection.connect((err) => {
 
   // add new beer to the database
   exports.addNewBeer = function (req, res) {
-    var query = stringify(req.body);
+    console.log(req.body);
+    // var query = JSON.stringify(req.body);
+    var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel);
     console.log(query);
-    connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel, triedthis) VALUES ?' [{query}] , (err, result) => {
+  connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel VALUES ?' [query], function(err, result) {
       if (err) throw err;
       for (let i = result.length - 1; i >= 0; i--) {
         console.log(`${result[i].name}\n`);
