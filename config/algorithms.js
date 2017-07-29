@@ -4,9 +4,9 @@ const connection = mysql.createConnection({
   host: 'localhost',
   port: 3306,
   // your username
-  user: 'scandrews',
+  user: 'root',
   // your password
-  password: 'RutBud17',
+  password: 'advictoriam',
   database: 'beer_db',
 
 });
@@ -16,7 +16,7 @@ connection.connect((err) => {
 
   // find a random beer of the day
   exports.getBeerOfTheDay = function (res) {
-    const beerOfTheDayID = Math.floor((Math.random() * 20) + 1);
+    const beerOfTheDayID = Math.floor((Math.random() * 20)) + 1;
     console.log(beerOfTheDayID);
     // find = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:beerOfTheDayID}], 
     connection.query('SELECT * FROM beerTbl WHERE ?', [{ id: beerOfTheDayID }],
@@ -125,9 +125,9 @@ connection.connect((err) => {
   exports.addNewBeer = function (req, res) {
     console.log(req.body);
     // var query = JSON.stringify(req.body);
-    var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel);
+    var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel + "," + false);
     console.log(query);
-  connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel VALUES ?' [query], function(err, result) {
+  connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel, triedthis) VALUES ?' [query], function(err, result) {
       if (err) throw err;
       for (let i = result.length - 1; i >= 0; i--) {
         console.log(`${result[i].name}\n`);
