@@ -1,6 +1,5 @@
 // the server for the beer finder app
 const express = require('express');
-
 const app = express();
 const session = require('express-session');
 const passport = require('passport');
@@ -12,16 +11,12 @@ const path = require('path');
 
 const PORT = 8000;
 
-// for including CSS
-// app.use(express.static('public'));
-
 // for BodyParser
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
-
 app.use(bodyParser.json());
 
 // for Passport
@@ -48,16 +43,14 @@ app.engine('handlebars', (exphbs({
 
 app.set('view engine', 'handlebars');
 
-// Serve static content from the 'public' directory
+// Serve static content from 'public'
 app.use(express.static('public'));
-
 
 // Models
 const models = require('./models');
 
 // Routes
 const authRoute = require('./controllers/auth.js')(app, passport);
-
 
 // load passport strategies
 require('./config/passport.js')(passport, models.user);

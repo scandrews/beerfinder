@@ -25,9 +25,9 @@
             <div class="list-group">
                 <form action="/listAll" method="POST">
                     <input type="hidden" name="id" value="listAll">
-                    <button class="btn btn-submit" type="submit">List All Beers</button>
+                    <button class="list-group-item" type="submit">List All Beers</button>
                 </form>
-
+<!-- <button class="btn btn-submit" type="submit">List All Beers</button> -->
                 
                   <div class="list-group">
                   <a href="#" class="list-group-item active" id="MatchBeerBtn">BEER SEARCH</a>
@@ -35,19 +35,14 @@
                   <form href="#" class="list-group-item" type="hidden" id="listAll" action="/listAll" method="POST">List All Beers</a>
                   </form>
 
-                  <a href="#" class="list-group-item">Item 3</a>
-                </div> 
-                </div>
 
                 {{!--
-                <form action="/findNew" method="POST">
-                    <input type="hidden" name="id" value="findNew">
-                    <button class="btn btn-submit" type="submit">Find Me A New Beer</button>
-                </form> --}} {{!--
                 <form action="/AddNew" method="POST">
                     <input type="hidden" name="id" value="AddNew"> --}}
-                    <button id="addBeerBtn" class="btn btn-submit" type="submit">Add a New Beer</button>
+                    <button id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</button>
                     {{!-- </form> --}}
+                </div> 
+                </div>
             </div>
         </div>
         <div class="row">
