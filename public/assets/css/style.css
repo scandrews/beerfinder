@@ -1,37 +1,53 @@
 .navbar.navbar-default {
-	background-color: transparent;
-	box-shadow: none;
-	border: 0;
-	font-size: 25px;
+    background-color: transparent;
+    box-shadow: none;
+    border: 0;
+    font-size: 25px;
 }
 
 body {
-	background-image: url("../images/beer.jpg");
-	background-size: 100%;
+    background-image: url("../images/beer.jpg");
+    background-size: 100%;
 }
 
-.jumbotron {
-	background-color: transparent;
-	color: orange;
+.my-jumbotron {
+    background-color: !important;
+    color: whitesmoke;
+    font-size: 25px;
+    font-family: roboto mono;
+    padding-bottom: 25px;
+    font-style: italic;
 }
 
-h2 {
-	color: white;
+.btn.btn-block {
+    background-color: peru;
+    color: ghostwhite;
+    border-color: black;
+    font-family: roboto;
+    font-size: 15px;
+    box-shadow: 1px 10px 20px -10px rgba(0, 0, 0, 1.5);
 }
 
-.list-group-item { 
+h1, h2 {
+    color: antiquewhite;
+    padding-top: 45px;
+    padding-bottom: 20px;
+}
+
+.list-group-item {
     background-color: Transparent;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     border: none;
-    cursor:pointer;
+    cursor: pointer;
     overflow: hidden;
-    outline:none;
+    outline: none;
 }
+
 
 /*-----------------------------------------*/
 
 * {
-  margin: 0px auto;
+  margin: 5px auto;
   padding: 0px;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
@@ -403,9 +419,3 @@ margin-left: 30px;
   left:50%;
   transform: translate(-50%, -50%);
 }
-
-
-
-
-
-

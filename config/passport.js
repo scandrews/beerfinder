@@ -22,11 +22,11 @@ module.exports = (passport, user) => {
 
     ((req, email, password, done) => {
       const generateHash = password => bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-      
+
 
       User.findOne({
         where: {
-          email,
+          email
         },
       }).then((user) => {
         if (user) {
