@@ -1,15 +1,30 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3306,
-  // your username
-  user: 'scandrews',
-  // your password
-  password: 'RutBud17',
-  database: 'beer_db',
+var connection;
+if (process.env.JAWSDB_URL) {
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
+  } else {
+    connection = mysql.createConnection({
+      host: 'localhost',
+      port: 3306,
+      // your username
+      user: 'scandrews',
+      // your password
+      password: 'RutBud17',
+      database: 'beer_db'  
+    });
+  };
 
-});
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   port: 3306,
+//   // your username
+//   user: 'scandrews',
+//   // your password
+//   password: 'RutBud17',
+//   database: 'beer_db',
+
+// });
 connection.connect((err) => {
   if (err) throw err;
 
