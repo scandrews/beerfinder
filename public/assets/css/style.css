@@ -43,6 +43,17 @@ h1, h2 {
     outline: none;
 }
 
+/* --------------------------------------- */
+/* these 2 were brought over from the dashboard file */
+
+#beerTitle {
+    color: blue;
+    font-size: large;
+}
+
+#findNewDivTitle {
+    color: white;
+}
 
 /*-----------------------------------------*/
 

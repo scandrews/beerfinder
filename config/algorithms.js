@@ -138,6 +138,7 @@ connection.connect((err) => {
 
   // add new beer to the database
   exports.addNewBeer = function (req, res) {
+    console.log("In add beer, req.body -");
     console.log(req.body);
     // var query = JSON.stringify(req.body);
     var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel + "," + false);

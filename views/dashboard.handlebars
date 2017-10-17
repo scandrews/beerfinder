@@ -6,9 +6,9 @@
                 <h1>BEERS!</h1>
                 <p>The beer of the day is - {{ beers }} </p>
             </div>
+
+            <!--  division for list all beers  -->
             <div class="row">
-                <!--      BEER ROW!
-   -->
                 <ul>
                     {{#each dbBeer}}
                     <div class="col-m-4 col-sm-4 col-xs-4">
@@ -21,50 +21,41 @@
                 </ul>
             </div>
         </div>
+
+        <!-- The buttons on the right side of the main page -->
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
             <div class="list-group">
-                <form action="/listAll" method="POST">
-                    <input type="hidden" name="id" value="listAll">
-                    <button class="list-group-item" type="submit">List All Beers</button>
-                </form>
-<!-- <button class="btn btn-submit" type="submit">List All Beers</button> -->
-                
-                  <div class="list-group">
-                  <a href="#" class="list-group-item active" id="MatchBeerBtn">BEER SEARCH</a>
-
-                  <form href="#" class="list-group-item" type="hidden" id="listAll" action="/listAll" method="POST">List All Beers</a>
-                  </form>
-
-
-                {{!--
-                <form action="/AddNew" method="POST">
-                    <input type="hidden" name="id" value="AddNew"> --}}
-                    <button id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</button>
-                    {{!-- </form> --}}
-                </div> 
+                <div class="list-group">
+                    <form href="#" class="list-group-item" id="MatchBeerBtn">Beer Search</form>
+                    <form action="/listAll" method="POST">
+                        <input type="hidden" name="id" value="listAll">
+                        <button class="list-group-item" type="submit">List All Beers</button>
+                    </form>
+                    <form id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</form>
+                </div>
                 </div>
             </div>
         </div>
+
+
         <div class="row">
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- the beer finder modal -->
+
 <div class="modal fade" id="beerFinderModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-<!--                 <form action="/user" method="POST" class="button-size addBloc">
-                  <textarea type="text" name="cust_name"></textarea>
-                  <button type="submit">Enter</button>
-                </form>
- -->
                 <form action="/findNew" method="POST" id="beerModalForm">
-                    <textarea type="text" name="matchName" placeholder="enter the beer you're hoping to match"></textarea>
+                    <input type="text" name="matchName" placeholder="Enter a beer to match"></input>
                     <button type="submit" class="btn btn-info small" id="getTheDamThing">Search!</button>
                 </form>
             </div>
@@ -79,7 +70,9 @@
         </div>
     </div>
 </div>
-{{!-- Modal for the add new beer form --}}
+
+
+<!-- Modal for the add new beer form -->
 <div class="modal fade" id="beerAddModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -129,25 +122,24 @@
         </div>
     </div>
 </div>
-<style type="text/css">
-#beerTitle {
-    color: blue;
-    font-size: large;
-}
 
-#findNewDivTitle {
-    color: white;
-}
-</style>
 <script>
-$('#MatchBeerBtn').on('click', function(e, result) {
-$("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
-    e.preventDefault();
-//  $("#beerFinderModal").modal('toggle')
-// });
+
+$("#addBeerBtn").on("click", function() {
+    $("#beerAddModal").modal("toggle");
+});
+
+
+$('#MatchBeerBtn').on('click', function() {
+ $("#beerFinderModal").modal('toggle', function(){
+    $("#beerFinderModal").modal('show')
+ })
+});
+
+// $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
+//     e.preventDefault();
     // $("#beerModalForm").on('submit', function(e, result){
     // $("#beerFinderModal").modal('toggle')
-});
 // });
 
 
@@ -172,9 +164,6 @@ $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
 //         });
 // });
 //trigger for add beer button to launch add modal
-$("#addBeerBtn").on("click", function() {
-    $("#beerAddModal").modal("toggle");
-});
 
 
 
