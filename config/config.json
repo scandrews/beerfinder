@@ -1,16 +1,16 @@
 {
   "development": {
-    "username": "scandrews",
-    "password": "RutBud17",
-    "database": "beer_db",
-    "host": "127.0.0.1",
+    "username": "nqpjf6vsckll0kyv",
+    "password": "g5s2i226w3k0bkx0",
+    "database": "znmhv3nf1xa52lhj",
+    "host": "p1us8ottbqwio8hv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "RutBud17",
-    "database": "beer_db",
-    "host": "127.0.0.1",
+    "username": "nqpjf6vsckll0kyv",
+    "password": "g5s2i226w3k0bkx0",
+    "database": "znmhv3nf1xa52lhj",
+    "host": "p1us8ottbqwio8hv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
@@ -21,3 +21,12 @@
     "dialect": "mysql"
   }
 }
+
+
+  // "development": {
+  //   "username": "scandrews",
+  //   "password": "RutBud17",
+  //   "database": "beer_db",
+  //   "host": "127.0.0.1",
+  //   "dialect": "mysql"
+  // }
