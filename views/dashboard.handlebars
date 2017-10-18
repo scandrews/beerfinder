@@ -4,7 +4,7 @@
             <p class="pull-right visible-xs"></p>
             <div class="my-jumbotron">
                 <h1>BEERS!</h1>
-                <p>The beer of the day is - {{ beers }} </p>
+                <p> {{ title }} {{ beers }} {{ title2 }} </p>
             </div>
 
             <!--  division for list all beers  -->
@@ -20,6 +20,22 @@
                     {{/each}}
                 </ul>
             </div>
+
+            <!-- division for the matches to the beer search -->
+            <div class="my-jumbotron">
+                <p> {{ searchtitle }} </p>
+                <ul>
+                    {{#each beermatch}}
+                        <div class="col-m-4 col-sm-4 col-xs-4">
+                            <p>
+                                <div class="btn btn-block" href="#" role="button"> {{this.name}}
+                                </div>
+                            </p>
+                        </div>
+                    {{/each}}
+                </ul>
+            </div>
+
         </div>
 
         <!-- The buttons on the right side of the main page -->
@@ -62,7 +78,7 @@
             <div id="beerMatchDiv">
                 <h5>Search RESULTS:</h5> {{#each modalBeer}}
                 <br>
-                <h3>{{this.name}}</h3> {{/each}}
+                <h4>{{this.name}}</h4> {{/each}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

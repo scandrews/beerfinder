@@ -28,7 +28,6 @@ if (process.env.JAWSDB_URL) {
 connection.connect((err) => {
   if (err) throw err;
 
-
   // find a random beer of the day
   exports.getBeerOfTheDay = function (res) {
     const beerOfTheDayID = Math.floor((Math.random() * 20)) + 1;
@@ -39,14 +38,16 @@ connection.connect((err) => {
         if (err) throw err;
         console.log(`The Beer of the Day is: ${result[0].name}`);
         const beerOTD = result[0].name;
-        res.render('dashboard', { beers: beerOTD });
+        const title = "The beer of the day is - ";
+
+        res.render('dashboard', {title: "The beer of the day is - ", beers: beerOTD} );
 
         // return result[0].name;
-      }); // this is working without AJAX  7-27TG
+      });
   };
 
 
-  // basic test to log all the beer names
+  // list all the beer names
   exports.listAll = function (res) {
     connection.query('SELECT * FROM beerTbl', (err, result) => {
       if (err) throw err;
@@ -55,7 +56,7 @@ connection.connect((err) => {
       }
       res.render('dashboard', { dbBeer: result });
       // return result;
-    });// working currently 7-27 TG
+    });
   };
 
   // list the beers out by type
@@ -66,7 +67,7 @@ connection.connect((err) => {
       for (let i = 0; i < result.length; i++) {
         console.log(`${result[i].name}_____${result[i].style}`);
       }
-    });// test works 7-19 TG --not in use currently 7/27 TG
+    });//  --not in use currently
   };
 
   // search the db by name
@@ -87,26 +88,22 @@ connection.connect((err) => {
         });
     };
     findMeBeers();
-  }; // also not used in current iteration 7/27 TG
+  }; // not used in current implementation
+
 
   exports.matchBeer = function (res, searchName) {
       console.log("in algorithms, matching beer - " + searchName);
-      console.log(`in matching beer - ${searchName}`);
       // pull beer 1 from db and store in var
       connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],	(err, result) => {
         if (result.length === 0){
             console.log("that wasn't in the database");
             const beersNotHere = searchName;
             console.log(beersNotHere);
-            res.render('dashboardnobeer', { notHere: searchName });
+            res.render('dashboard', {title: "Sorry ", beers: searchName, title2: "is not in our database"} );
 
-        // const beerOTD = result[0].name;
-        // res.render('dashboard', { beers: beerOTD });
-
-
+            // res.render('dashboardnobeer', { notHere: searchName });
 
         }else{
-
           for (let i = 0; i < result.length; i++) {
               console.log(`matching beers to: ${result[0].name}`);
               // grabbing selected beer identifiers to match with
@@ -129,7 +126,10 @@ connection.connect((err) => {
                   console.log(`your beer matches with: ${result[i].name}`);
                 }
                 // res.json(result);
-                res.render('dashboard', { modalBeer: result });
+
+                res.render('dashboard', {searchtitle: "Your beer matches with the following", beermatch: result} );
+
+                // res.render('dashboard', { modalBeer: result });
                 // return result;
             });
         }
@@ -143,30 +143,17 @@ connection.connect((err) => {
     // var query = JSON.stringify(req.body);
     var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel + "," + false);
     console.log(query);
-  connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel, triedthis) VALUES ?' [query], function(err, result) {
+    connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel, triedthis) VALUES ?' [query], function(err, result) {
       if (err) throw err;
+      console.log("result - " + result);
       for (let i = result.length - 1; i >= 0; i--) {
         console.log(`${result[i].name}\n`);
       }
       res.render('dashboard', { dbBeer: result });
       // return result;
-    });// working currently 7-27 TG
+    });
   };
 
 
 
-// my sql .escape makes usre the variable you're using is ok to use with SQL
-// beerOfTheDay(); 	//	7/22 working TG
-// matchBeer();		//	7/22 IN PROGRESS TG
-// searchDB();		//	7-22 working TG
-// listAll();		//	7-22 working TG
-// listByType();	// 	7-22 working TG
-
-
-// var algorithms = {
-// 	getBeerOfTheDay: getBeerOfTheDay,
-// 	// matchBeer: matchBeer,
-// 	listAll: listAll	
-// };
-// module.exports = algorithms;
 });// end of connection

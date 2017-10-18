@@ -59,7 +59,7 @@ require('./config/passport.js')(passport, models.user);
 models.sequelize
   .sync()
   .then(() => {
-    console.log('Nice! Database looks fine');
+    console.log('Connected to the Database');
   })
   .catch((err) => {
     console.log(err, 'Something went wrong with the Database Update!');
