@@ -8,15 +8,15 @@
   },
   "test": {
     "username": "root",
-    "password": "Rambo",
-    "database": "database_test",
+    "password": "RutBud17",
+    "database": "beer_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "Rambo",
-    "database": "database_production",
+    "password": "RutBud17",
+    "database": "beer_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
