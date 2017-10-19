@@ -5,13 +5,13 @@ if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
   } else {
     connection = mysql.createConnection({
-      host: 'p1us8ottbqwio8hv.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      host: 'localhost',
       port: 3306,
       // your username
-      user: 'nqpjf6vsckll0kyv',
+      user: 'scandrews',
       // your password
-      password: 'g5s2i226w3k0bkx0',
-      database: 'znmhv3nf1xa52lhj'
+      password: 'RutBud17',
+      database: 'beer_db'  
     });
   };
 
@@ -140,18 +140,31 @@ connection.connect((err) => {
   exports.addNewBeer = function (req, res) {
     console.log("In add beer, req.body -");
     console.log(req.body);
+    // triedThis = false;
     // var query = JSON.stringify(req.body);
-    var query = (req.body.name + "," + req.body.color + "," + req.body.hoppieness + "," + req.body.style + "," + req.body.smell + "," + req.body.feel + "," + false);
-    console.log(query);
-    connection.query('INSERT INTO beerTbl (name, color, hoppieness, style, smell, feel, triedthis) VALUES ?' [query], function(err, result) {
-      if (err) throw err;
-      console.log("result - " + result);
-      for (let i = result.length - 1; i >= 0; i--) {
-        console.log(`${result[i].name}\n`);
-      }
-      res.render('dashboard', { dbBeer: result });
-      // return result;
+    // var insertData = ("'" + req.body.name + "'," + req.body.color + "," + req.body.hoppieness + ",'" + req.body.style + "','" + req.body.smell + "','" + req.body.feel + "'," + false);
+    // console.log(insertData);
+    // connection.query("INSERT INTO beertbl (name, color, hoppieness, style, smell, feel, triedThis) VALUES ?", [ {insertData} ],
+    connection.query("INSERT INTO beertbl SET ?",
+      {
+        name: req.body.name,
+        color: req.body.color,
+        hoppieness: req.body.hoppieness,
+        style: req.body.style,
+        smell: req.body.smell,
+        feel: req.body.feel,
+        triedThis: false
+      },
+      (err, result) => {
+        if (err) throw err;
+        console.log("result - " + result);
+        for (let i = result.length - 1; i >= 0; i--) {
+            console.log(`${result[i].name}\n`);
+        }
+        res.render('dashboard', { dbBeer: result });
+        // return result;
     });
+  // end add new beer
   };
 
 
