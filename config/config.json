@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "scandrews",
-    "password": "RutBud17",
-    "database": "beer_db",
-    "host":     "localhost",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host":     "",
     "dialect":  "mysql"
   },
   "test": {
-    "username": "scandrews",
-    "password": "RutBud17",
-    "database": "beer_db",
-    "host":     "localhost",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host":     "",
     "dialect":  "mysql"
   },
   "production": {
-    "username": "scandrews",
-    "password": "RutBud17",
-    "database": "beer_db",
-    "host":     "localhost",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host":     "",
     "dialect":  "mysql"
   }
 }
