@@ -45,6 +45,14 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.ENUM('active', 'inactive'),
       defaultValue: 'active',
     },
+    createdAt:{
+      type: Sequelize.TIME,
+      allowNull: false, 
+    },
+    updatedAt:{
+      type: Sequelize.TIME,
+      allowNull: false, 
+    }
 
 
   });
