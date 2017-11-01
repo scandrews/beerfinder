@@ -52,7 +52,7 @@ connection.connect((err) => {
     connection.query('SELECT * FROM beerTbl', (err, result) => {
       if (err) throw err;
       for (let i = result.length - 1; i >= 0; i--) {
-        console.log(`${result[i].name}\n`);
+        console.log(`${result[i].name}`);
       }
       res.render('dashboard', { dbBeer: result });
       // return result;
@@ -96,7 +96,7 @@ connection.connect((err) => {
       // pull beer 1 from db and store in var
       connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],	(err, result) => {
         if (result.length === 0){
-            console.log("that wasn't in the database");
+            console.log("In Algorthms: matchbeer - that wasn't in the database");
             const beersNotHere = searchName;
             console.log(beersNotHere);
             res.render('dashboard', {title: "Sorry ", beers: searchName, title2: "is not in our database"} );
@@ -157,11 +157,13 @@ connection.connect((err) => {
       },
       (err, result) => {
         if (err) throw err;
-        console.log("result - " + result);
-        for (let i = result.length - 1; i >= 0; i--) {
-            console.log(`${result[i].name}\n`);
+        else{
+        console.log("sucessfully wrote new beer to db");
+        console.log("req.body - ");
+        console.log(req.body);
+          
         }
-        res.render('dashboard', { dbBeer: result });
+        res.render('dashboard', {title: "Your beer - ", beers: req.body.name, title2: " was added to our database"} );
         // return result;
     });
   // end add new beer

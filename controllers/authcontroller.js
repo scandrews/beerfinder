@@ -1,21 +1,6 @@
 var exports = module.exports = {};
 const algorithms = require('../config/algorithms.js');
 
-exports.signup = (req, res) => {
-  console.log("we're in the signUP authcontroller");
-  res.render('dashboard');
-};
-
-exports.signin = (req, res) => {
-  console.log("we're in the signIN authcontroller");
-  res.render('index');
-};
-
-// exports.signin = (req, res) => {
-// 	console.log("we're in the authcontroller")
-//   res.render('index');
-// };
-
 
 exports.dashboard = (req, res) => {
   console.log("we're in the dashboard authcontroller");
@@ -26,11 +11,6 @@ exports.dashboard = (req, res) => {
   });
 };
 
-exports.logout = (req, res) => {
-  req.session.destroy((err) => {
-    res.redirect('/');
-  });
-};
 
 exports.listAll = function (req, res) {
   console.log("we're in the / post");
@@ -50,6 +30,6 @@ exports.findNew = function (req, res) {
 };
 
 exports.addBeer = function (req, res) {
-  console.log("got ot authcontroller");
+  console.log("got addBeer in authcontroller");
   algorithms.addNewBeer(req, res);
 }

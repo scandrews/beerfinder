@@ -2,7 +2,6 @@
 const express = require('express');
 const app = express();
 const session = require('express-session');
-const passport = require('passport');
 const bodyParser = require('body-parser');
 
 // const env = require('dotenv').load();
@@ -19,18 +18,6 @@ app.use(
 );
 app.use(bodyParser.json());
 
-// for Passport
-app.use(
-  session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
-// session secret
-app.use(passport.initialize());
-app.use(passport.session());
 
 // for Handlebars
 app.set('views', './views');
@@ -50,10 +37,8 @@ app.use(express.static('public'));
 const models = require('./models');
 
 // Routes
-const authRoute = require('./controllers/auth.js')(app, passport);
+const authRoute = require('./controllers/auth.js')(app);
 
-// load passport strategies
-require('./config/passport.js')(passport, models.user);
 
 // Sync Database
 models.sequelize

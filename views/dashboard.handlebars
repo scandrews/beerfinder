@@ -95,14 +95,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add a beer to the data base</h2>
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             {{!-- Entry Form Goes HERE --}}
             <form class="form-inline">
  
-   <!--          <div class="userBloc col-md-6">
-                <input type="text" class="name" id="userName">
- -->
                  <div class="form-group">
                     <label for="newBeerName"></label>
                     <input type="text" class="form-control" id="newBrName" placeholder="NAME">
@@ -129,7 +125,6 @@
                 </div>
                 <br>
                 <br>
-
                     <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
                 </form>
             <div class="modal-footer">
@@ -142,45 +137,17 @@
 <script>
 
 $("#addBeerBtn").on("click", function() {
-    $("#beerAddModal").modal("toggle");
+    $("#beerAddModal").modal("toggle", function(){
+        $("beerAddModal").modal('show')
+    })
 });
 
 
 $('#MatchBeerBtn').on('click', function() {
- $("#beerFinderModal").modal('toggle', function(){
-    $("#beerFinderModal").modal('show')
- })
+    $("#beerFinderModal").modal('toggle', function(){
+        $("#beerFinderModal").modal('show')
+    })
 });
-
-// $("#beerFinderModal").modal('toggle', {"backdrop":"static"}  )
-//     e.preventDefault();
-    // $("#beerModalForm").on('submit', function(e, result){
-    // $("#beerFinderModal").modal('toggle')
-// });
-
-
-// $('#getTheDamThing').on('click', function() {
-//     $.post("/findNew", function(results) {
-//         $("#beerMatchDiv").append(results.name);
-//         $("#beerMatchDiv").append(results.hoppieness);
-//         $("#beerMatchDiv").append('<hr>' + "<br>");
-//     });
-// });
-//current error is that this is directing nothing to the DB to match against, therefore due to the math 
-//involved on the backend, it will return an NaN error  - TG
-// $("#addBeerBtn").on("click", function(){
-//  var beerToGet = $(this).attr("matchName");
-//  console.log(beerToGet);
-//  $.ajax({
-//           url: "/findNew",
-//           method: "post"
-//         })
-//    .done(function(results){
-//             alert("Data: " + results);
-//         });
-// });
-//trigger for add beer button to launch add modal
-
 
 
 $("#addNewBeerBtn").on("click", function(){
@@ -203,43 +170,8 @@ $("#addNewBeerBtn").on("click", function(){
 
     console.log(newBeerObj);
 
-    var sendthis = JSON.stringify(newBeerObj);
-
     $.post("/addBeer", newBeerObj);
-    // $.ajax({
-    //     url: "/addBeer",
-    //     method: "post"
-    //     // data: newBeerObj
-    //     })
-    //     .done(function(results){
-    //         alert("Data: " + results);
-    //     });
 });
 
 
-
-//  $.post("/addBeer",  function(data) {
-//        console.log(data);
-//        if (data) {
-//         console.log('data', data)
-//          // $("#stats").show();
-//          // $("#name").text(data.name);
-//          // $("#role").text(data.role);
-//          // $("#age").text(data.age);
-//          // $("#force-points").text(data.forcePoints);
-//        }
-//        else {
-//          // $("#name").text("The force is not strong with this one. Your character was not found.");
-//          // $("#stats").hide();
-//          console.log("no data")
-//        }
-//      });
-// $( "div.modal.fade" ).addClass( "in" );
-//  // $("#beerFinderModal").modal({"backdrop":"static"} );
-
-// });
-// $("#beerFinderModal").on('hide.bs.modal', function(e){
-//  console.log(e);
-// e.preventDefault();
-// })
 </script>

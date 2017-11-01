@@ -1,30 +1,17 @@
 
 const authController = require('../controllers/authcontroller.js');
 
-module.exports = (app, passport) => {
-  // app.get('/', (req, res) => {
-  //   signin();
-  //   // res.send('Welcome to Passport with Sequelize');
-  // });
-  app.get('/', authController.signin);
+module.exports = (app) => {
 
-  app.get('/signup', authController.signup);
+  app.get('/', function(req, res) {
+    console.log("In Auth /");
+    authController.dashboard(req, res);
+  });
 
-  app.get('/signin', authController.signin);
-
-  app.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signup'
-  }));
-
-  app.get('/dashboard', isLoggedIn, authController.dashboard);
-
-  app.get('/logout', authController.logout);
-
-  app.post('/signin', passport.authenticate('local-signin', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/signin',
-  }));
+  app.get('/dashboard', function(req, res) {
+    console.log("In Auth, /dashboard");
+    authController.dashboard(req, res);
+  });
 
   app.post("/listAll", function(req, res) {
     authController.listAll(req, res);
@@ -35,16 +22,16 @@ module.exports = (app, passport) => {
     authController.findNew(req, res);
   });
 
+  app.get("/findNew", function(req, res) {
+    console.log("at the find new get");
+    authController.findNew(req, res);
+  });
+
   app.post("/addBeer", function(req, res) {
     console.log("got the add beer post");
     authController.addBeer(req, res);
   });
 
-  function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) { return next(); }
-
-    res.redirect('/signin');
-  };
 
 // end exports 
 };
