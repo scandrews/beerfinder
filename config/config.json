@@ -4,7 +4,8 @@
     "password": "RutBud17",
     "database": "beer_db",
     "host":     "localhost",
-    "dialect":  "mysql"
+    "dialect":  "mysql",
+    "operatorsAliases": false
   },
   "test": {
     "username": "",

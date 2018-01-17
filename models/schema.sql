@@ -1,18 +1,61 @@
-CREATE DATABASE beer_db;
+-- CREATE DATABASE beer_db;
 
-USE beer_db;
+-- USE beer_db;
 
-CREATE TABLE beerTbl(
-    id int auto_increment not null,
-    name varchar(30),
-    color int,
-    hoppieness int, 
-    style varchar(30),
-    smell varchar(30),
-    feel  varchar(30),
-    triedThis Boolean,
-    primary key(id)
-);
+module.exports = function(sequelize, sequelize){
+  var beertbl = sequelize.define("beertbl", {
+    id: {
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    name: {
+      type: sequelize.STRING,
+      allowNull: false,
+      validate: { len: [1] }
+    },
+    color: {
+      type: sequelize.int,
+      default: false 
+    },
+    hoppieness: {
+      type: sequelize.int,
+      default: false
+    },
+    style: {
+      type: sequelize.STRING,
+      default: false
+    },
+    smell: {
+      type: sequelize.STRING,
+      default: false
+    },
+    feel: {
+      type: sequelize.STRING,
+      default: false
+    },
+    triedThis: {
+      type: Boolean,
+      default: "false"
+    }
+  });
+  return beerTbl;
+};
+
+
+
+
+-- CREATE TABLE beerTbl(
+--     id int auto_increment not null,
+--     name varchar(30),
+--     color int,
+--     hoppieness int, 
+--     style varchar(30),
+--     smell varchar(30),
+--     feel  varchar(30),
+--     triedThis Boolean,
+--     primary key(id)
+-- );
 
  	--  insert into beerTbl(name, color, hoppieness, style, smell, feel, triedthis) 
  	-- VALUES ('NAME', colorint, ibu, 'type', 'smell', 'feel',false);

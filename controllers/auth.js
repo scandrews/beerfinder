@@ -22,10 +22,10 @@ module.exports = (app) => {
     authController.findNew(req, res);
   });
 
-  app.get("/findNew", function(req, res) {
-    console.log("at the find new get");
-    authController.findNew(req, res);
-  });
+  // app.get("/findNew", function(req, res) {
+  //   console.log("at the find new get");
+  //   authController.findNew(req, res);
+  // });
 
   app.post("/addBeer", function(req, res) {
     console.log("got the add beer post");

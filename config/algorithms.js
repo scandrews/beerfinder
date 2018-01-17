@@ -1,137 +1,138 @@
 const mysql = require('mysql2');
+// include the data definition from schema.js
+var db = require("../models");
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
-var connection;
-if (process.env.JAWSDB_URL) {
-  connection = mysql.createConnection(process.env.JAWSDB_URL);
-  } else {
-    connection = mysql.createConnection({
-      host: 'localhost',
-      port: 3306,
-      // your username
-      user: 'scandrews',
-      // your password
-      password: 'RutBud17',
-      database: 'beer_db'  
-    });
-  };
+// var connection;
+// if (process.env.JAWSDB_URL) {
+//   connection = mysql.createConnection(process.env.JAWSDB_URL);
+//   } else {
+//     connection = mysql.createConnection({
+//       host: 'localhost',
+//       port: 3306,
+//       // your username
+//       user: 'scandrews',
+//       // your password
+//       password: 'RutBud17',
+//       database: 'beer_db'  
+//     });
+//   };
 
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   port: 3306,
-//   // your username
-//   user: 'scandrews',
-//   // your password
-//   password: 'RutBud17',
-//   database: 'beer_db',
-
-// });
-connection.connect((err) => {
-  if (err) throw err;
 
   // find a random beer of the day
-  exports.getBeerOfTheDay = function (res) {
-    const beerOfTheDayID = Math.floor((Math.random() * 20)) + 1;
-    console.log(beerOfTheDayID);
-    // find = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:beerOfTheDayID}], 
-    connection.query('SELECT * FROM beerTbl WHERE ?', [{ id: beerOfTheDayID }],
-      (err, result) => {
-        if (err) throw err;
-        console.log(`The Beer of the Day is: ${result[0].name}`);
-        const beerOTD = result[0].name;
-        const title = "The beer of the day is - ";
+  exports.getBeerOfTheDay = function (req, res) {
+    db.beertbl.findAll({ }).then(function(result) {
+        console.log("in get beer of the day, results.name - ");
+        // get the number of beers in the db to use for search
+        var maxNumBeers = result.length;
+        console.log(maxNumBeers);
+        var beerOfTheDayID = Math.floor((Math.random() * maxNumBeers)) + 1;
+        console.log(beerOfTheDayID);
+        // find = connection.query('SELECT * FROM beerTbl WHERE ?', [{id:beerOfTheDayID}], 
+        db.beertbl.findOne({
+          where: {
+            id: beerOfTheDayID
+            }
+            }).then(function(beerOTD){
+              console.log("The Beer of the Day is: ");
+              console.log(beerOTD.name);
+              const title = "The beer of the day is - ";
 
-        res.render('dashboard', {title: "The beer of the day is - ", beers: beerOTD} );
+              res.render('dashboard', {title: "The beer of the day is - ", beers: beerOTD.name} );
 
-        // return result[0].name;
-      });
+              // return result[0].name;
+          })
+    });
   };
 
 
   // list all the beer names
-  exports.listAll = function (res) {
-    connection.query('SELECT * FROM beerTbl', (err, result) => {
-      if (err) throw err;
-      for (let i = result.length - 1; i >= 0; i--) {
-        console.log(`${result[i].name}`);
-      }
-      res.render('dashboard', { dbBeer: result });
-      // return result;
+  exports.listAll = function (req, res) {
+    db.beertbl.findAll({ }).then(function(result) {
+      res.render('dashboard', { title: "These are the beers in our database", dbBeer: result });
     });
   };
 
   // list the beers out by type
-  const listByType = function () {
-    const styleSearch = 'IPA';
-    const beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{ style: styleSearch }], (err, result) => {
-      if (err) throw err;
-      for (let i = 0; i < result.length; i++) {
-        console.log(`${result[i].name}_____${result[i].style}`);
-      }
-    });//  --not in use currently
-  };
+  // const listByType = function () {
+  //   const styleSearch = 'IPA';
+  //   const beerList = db.beertbl('SELECT * FROM beerTbl WHERE ?', [{ style: styleSearch }], (err, result) => {
+  //     if (err) throw err;
+  //     for (let i = 0; i < result.length; i++) {
+  //       console.log(`${result[i].name}_____${result[i].style}`);
+  //     }
+  //   });//  --not in use currently
+  // };
 
   // search the db by name
-  const searchDB = function () {
-    const prompt = 'Heady Topper';		 // this will store the users inputed search
-    const findMeBeers = function () { // this is a general search function for the db - search by name
-      const beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: prompt }],
-			  (err, result) => {
-          if (err) throw err;
-          console.log(`prompt:  ${prompt}`);
-          if (result.length == 0) {
-            console.log('nothing found');
-          } else {
-            for (let i = 0; i < result.length; i++) {
-              console.log(result[i].name);
-            }
-          }
-        });
-    };
-    findMeBeers();
-  }; // not used in current implementation
+  // const searchDB = function () {
+  //   const prompt = 'Heady Topper';		 // this will store the users inputed search
+  //   const findMeBeers = function () { // this is a general search function for the db - search by name
+  //     const beerList = connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: prompt }],
+		// 	  (err, result) => {
+  //         if (err) throw err;
+  //         console.log(`prompt:  ${prompt}`);
+  //         if (result.length == 0) {
+  //           console.log('nothing found');
+  //         } else {
+  //           for (let i = 0; i < result.length; i++) {
+  //             console.log(result[i].name);
+  //           }
+  //         }
+  //       });
+  //   };
+  //   findMeBeers();
+  // }; // not used in current implementation
 
 
-  exports.matchBeer = function (res, searchName) {
+  exports.matchBeer = function (req, res) {
+      var searchName = req.body.matchName
       console.log("in algorithms, matching beer - " + searchName);
       // pull beer 1 from db and store in var
-      connection.query('SELECT * FROM beerTbl WHERE ?', [{ name: searchName }],	(err, result) => {
-        if (result.length === 0){
+      db.beertbl.findOne({
+          where: {
+            name: searchName
+          }
+        }).then( function(result) {
+          if (result === null){
             console.log("In Algorthms: matchbeer - that wasn't in the database");
-            const beersNotHere = searchName;
-            console.log(beersNotHere);
-            res.render('dashboard', {title: "Sorry ", beers: searchName, title2: "is not in our database"} );
+            console.log(searchName);
+            res.render('dashboard', {title: "Sorry ", beers: searchName, title2: "is not in our database"});
+          }else{
+            console.log("back from initial match - id, hoppieness, color - ");
+            console.log(result.id);
+            console.log(result.hoppieness)
+            console.log(result.color);
+            console.log(`matching beers to: ${result.name}`);
+            console.log(result.name);
+            // grabbing selected beer identifiers to match with
+            var searchIbu = result.hoppieness;
+            var searchColor = result.color;
+                // const searchStyle = result.style;
+                // var smell = result[0].smell; //we need a much larger db for this to work - removed for now
+                // };
 
-            // res.render('dashboardnobeer', { notHere: searchName });
+            ibuLimitHigh = searchIbu + 20;
+            ibuLimitLow = searchIbu - 20;
+            colorLimitHigh = searchColor + 2;
+            colorLimitLow = searchColor - 2;
 
-        }else{
-          for (let i = 0; i < result.length; i++) {
-              console.log(`matching beers to: ${result[0].name}`);
-              // grabbing selected beer identifiers to match with
-              var searchIbu = result[0].hoppieness;
-              var searchColor = result[0].color;
-              const searchStyle = result[0].style;
-              // var smell = result[0].smell; //we need a much larger db for this to work - removed for now
-              };
+            // based on stats from beer 1 identify matching beers searchIbu +-25,'AND', searchColor +- 2
 
-          ibuLimitHigh = searchIbu + 25;
-          ibuLimitLow = searchIbu - 25;
-          colorLimitHigh = searchColor + 2;
-          colorLimitLow = searchColor - 2;
-
-          // based on stats from beer 1 identify matching beers  searchIbu -25,'AND', searchIbu + 25,
-          connection.query(`SELECT * FROM beerTbl WHERE hoppieness BETWEEN ${ibuLimitLow} AND ${ibuLimitHigh} AND ${colorLimitLow} AND ${colorLimitHigh}`,
-            (err, result) => {
-                if (err) throw err;
-                for (let i = 0; i < result.length; i++) {
-                  console.log(`your beer matches with: ${result[i].name}`);
+            db.beertbl.findAll({
+              where: {
+                hoppieness:
+                  {[Op.between]: [ibuLimitLow, ibuLimitHigh]},
+                color:
+                  {[Op.between]: [colorLimitLow, colorLimitHigh]}
+              }
+            }).then( function(result){
+              for (let i = 0; i < result.length; i++) {
+                console.log(`your beer matches with: ${result[i].name}`);
                 }
-                // res.json(result);
-
-                res.render('dashboard', {searchtitle: "Your beer matches with the following", beermatch: result} );
-
-                // res.render('dashboard', { modalBeer: result });
-                // return result;
-            });
+              res.render('dashboard', {searchtitle: "Your beer matches with the following", beermatch: result} );
+              });
         }
       });
   };
@@ -140,12 +141,7 @@ connection.connect((err) => {
   exports.addNewBeer = function (req, res) {
     console.log("In add beer, req.body -");
     console.log(req.body);
-    // triedThis = false;
-    // var query = JSON.stringify(req.body);
-    // var insertData = ("'" + req.body.name + "'," + req.body.color + "," + req.body.hoppieness + ",'" + req.body.style + "','" + req.body.smell + "','" + req.body.feel + "'," + false);
-    // console.log(insertData);
-    // connection.query("INSERT INTO beertbl (name, color, hoppieness, style, smell, feel, triedThis) VALUES ?", [ {insertData} ],
-    connection.query("INSERT INTO beertbl SET ?",
+    db.beertbl.create(
       {
         name: req.body.name,
         color: req.body.color,
@@ -153,22 +149,26 @@ connection.connect((err) => {
         style: req.body.style,
         smell: req.body.smell,
         feel: req.body.feel,
-        triedThis: false
-      },
-      (err, result) => {
-        if (err) throw err;
-        else{
-        console.log("sucessfully wrote new beer to db");
-        console.log("req.body - ");
-        console.log(req.body);
-          
-        }
-        res.render('dashboard', {title: "Your beer - ", beers: req.body.name, title2: " was added to our database"} );
-        // return result;
+        triedThis: false,
+        createdAt: db.DATE,
+        updatedAt: db.DATE
+      }).then(function(result){
+        console.log("in the create callback");
+        // if (err){
+        //   console.log("error in the db write");
+        //   console.log(err);
+        // }
+        // else{
+          console.log("sucessfully wrote new beer to db");
+          console.log("result - ");
+          console.log(result.name);
+        // }
+        res.render('dashboard', {title: "Your beer - ", beers: result.name, title2: "has been added to the database"} );
+
     });
   // end add new beer
   };
 
 
 
-});// end of connection
+// end of connection

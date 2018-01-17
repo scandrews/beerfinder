@@ -42,12 +42,18 @@
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
             <div class="list-group">
                 <div class="list-group">
-                    <form href="#" class="list-group-item" id="MatchBeerBtn">Beer Search</form>
+                    <button type="button" class="list-group-item" data-toggle="modal" data-target="#beerFinderModal">
+                    Beer Search
+                    </button>
+                    <!-- <form href="#" class="list-group-item" id="MatchBeerBtn">Beer Search</form> -->
                     <form action="/listAll" method="POST">
                         <input type="hidden" name="id" value="listAll">
                         <button class="list-group-item" type="submit">List All Beers</button>
                     </form>
-                    <form id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</form>
+                    <button type="button" class="list-group-item" data-toggle="modal" data-target="#beerAddModal">
+                    Add a New Beer
+                    </button>
+                    <!-- <form id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</form> -->
                 </div>
                 </div>
             </div>
@@ -75,11 +81,6 @@
                     <button type="submit" class="btn btn-info small" id="getTheDamThing">Search!</button>
                 </form>
             </div>
-            <div id="beerMatchDiv">
-                <h5>Search RESULTS:</h5> {{#each modalBeer}}
-                <br>
-                <h4>{{this.name}}</h4> {{/each}}
-            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
@@ -97,9 +98,28 @@
                 <h2>Add a beer to the data base</h2>
             </div>
             {{!-- Entry Form Goes HERE --}}
-            <form class="form-inline">
- 
-                 <div class="form-group">
+            <form action="/addBeer" method="POST" id="newBeerObj" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="NAME"></input>
+                </div>
+                <div class="form-group">
+                    <input type="newIbu" class="form-control" name="hoppieness" placeholder="IBU"></input>
+                </div>
+                <div class="form-group">
+                    <input type="newColor" class="form-control" name="color" placeholder="COLOR"></input>
+                </div>
+                <div class="form-group">
+                    <input type="newSmell" class="form-control" name="smell" placeholder="SMELL"></input>
+                </div>
+                <div class="form-group">
+                    <input type="newType" class="form-control" name="style" placeholder="TYPE"></input>
+                </div>
+                <div class="form-group">
+                    <input type="newFeel" class="form-control" name="feel" placeholder="TEXTURE"></input>
+                </div>
+
+
+<!--                  <div class="form-group">
                     <label for="newBeerName"></label>
                     <input type="text" class="form-control" id="newBrName" placeholder="NAME">
                  </div>
@@ -124,9 +144,9 @@
                     <input type="newFeel" class="form-control" id="newBeerFeel" placeholder="TEXTURE">
                 </div>
                 <br>
-                <br>
-                    <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
-                </form>
+ -->            <br>
+                <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
+            </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
@@ -136,42 +156,39 @@
 
 <script>
 
-$("#addBeerBtn").on("click", function() {
-    $("#beerAddModal").modal("toggle", function(){
-        $("beerAddModal").modal('show')
-    })
-});
+// $("#addBeerBtn").on("click", function() {
+//     $("#beerAddModal").modal("toggle", function(){
+//         $("beerAddModal").modal('show')
+//     })
+// });
+
+// $('#MatchBeerBtn').on('click', function() {
+//     $("#beerFinderModal").modal('toggle', function(){
+//         $("#beerFinderModal").modal('show')
+//     })
+// });
 
 
-$('#MatchBeerBtn').on('click', function() {
-    $("#beerFinderModal").modal('toggle', function(){
-        $("#beerFinderModal").modal('show')
-    })
-});
+// $("#addNewBeerBtn").on("click", function(e){
+//     e.preventDefault();
+//     console.log("we're in the add beer click");
+//     $("#beerAddModal").modal("toggle", function(){
+//         $("beerAddModal").modal('hide')
+//     });
 
+//     var newBeerObj = {
+//         name: $("#newBrName").val().trim(),
+//         hoppieness: $("#newBeerIbu").val().trim(),
+//         color: $("#newBeerColor").val().trim(),
+//         style: $("#newBeerType").val().trim(),
+//         smell: $("#newBeerSmell").val().trim(),
+//         feel: $("#newBeerFeel").val().trim()
+//         };
 
-$("#addNewBeerBtn").on("click", function(){
-    // e.preventDefault();
-    console.log("we're in the add beer click");
-    var newBeer = $("#newBrName").val().trim();
-    var newIbu = $("#newBeerIbu").val().trim();
-    var newColor = $("#newBeerColor").val().trim();
-    var newType = $("#newBeerType").val().trim();
-    var newSmell = $("#newBeerSmell").val().trim();
-    var newFeel = $("#newBeerFeel").val().trim();
+//     console.log(newBeerObj);
 
-    var newBeerObj = {
-        name: newBeer,
-        hoppieness: newIbu,
-        color: newColor,
-        style: newType,
-        smell: newSmell,
-        feel: newFeel };
-
-    console.log(newBeerObj);
-
-    $.post("/addBeer", newBeerObj);
-});
+//     $.post("/addBeer", newBeerObj);
+// });
 
 
 </script>
