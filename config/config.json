@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "scandrews",
-    "password": "RutBud17",
+    "username": "kk6ic8yp2l4buv36",
+    "password": "lhmk68acwzvbp3rc",
     "database": "beer_db",
-    "host":     "localhost",
+    "host":     "erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect":  "mysql",
     "operatorsAliases": false
   },
