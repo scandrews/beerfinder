@@ -1,17 +1,17 @@
 {
   "development": {
-    "username": "kk6ic8yp2l4buv36",
-    "password": "lhmk68acwzvbp3rc",
+    "username": "scandrews",
+    "password": "RutBud17",
     "database": "beer_db",
-    "host":     "erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "host":     "localhost",
     "dialect":  "mysql",
     "operatorsAliases": false
   },
   "test": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host":     "",
+    "username": "kk6ic8yp2l4buv36",
+    "password": "lhmk68acwzvbp3rc",
+    "database": "zy2jbgeoz4g1dchm",
+    "host":     "erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect":  "mysql"
   },
   "production": {
