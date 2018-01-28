@@ -8,10 +8,10 @@
     "operatorsAliases": false
   },
   "test": {
-    "username": "kk6ic8yp2l4buv36",
-    "password": "lhmk68acwzvbp3rc",
-    "database": "zy2jbgeoz4g1dchm",
-    "host":     "erxv1bzckceve5lh.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "f5m9sjw9brdp30d7",
+    "password": "h5ox0157igelkcx4",
+    "database": "i75u79mizl9ii1xq",
+    "host":     "fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect":  "mysql"
   },
   "production": {
