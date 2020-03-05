@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.min.js"></script>
+
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
@@ -9,13 +11,11 @@
 
             <!--  division for list all beers  -->
             <div class="row">
+                <h2><font color="#79675F"> {{Label}} </h2>
                 <ul>
                     {{#each dbBeer}}
                     <div class="col-m-4 col-sm-4 col-xs-4">
-                        <p>
-                            <div class="btn btn-block" href="#" role="button"> {{this.name}}
-                            </div>
-                        </p>
+                        <button href="#" class="btn btn-block" data-toggle="modal" data-whatever="{{json this}}" data-target="#showThisBeerModal" >{{this.name}}</button>
                     </div>
                     {{/each}}
                 </ul>
@@ -36,25 +36,23 @@
                 </ul>
             </div>
 
+            <!-- division for after add beer  -->
+            <div class="my-jumbotron">
+                <h2> {{ firstAddTitle }} {{ matchedBeer }} {{ secondAddTitle }} </h2>
+            </div>
+
         </div>
 
         <!-- The buttons on the right side of the main page -->
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
             <div class="list-group">
                 <div class="list-group">
-                    <button type="button" class="list-group-item" data-toggle="modal" data-target="#beerFinderModal">
-                    Beer Search
-                    </button>
-                    <!-- <form href="#" class="list-group-item" id="MatchBeerBtn">Beer Search</form> -->
+                    <form href="#" class="list-group-item" id="MatchBeerBtn">Beer Search</form>
                     <form action="/listAll" method="POST">
                         <input type="hidden" name="id" value="listAll">
                         <button class="list-group-item" type="submit">List All Beers</button>
                     </form>
-                    <button type="button" class="list-group-item" data-toggle="modal" data-target="#beerAddModal">
-                    Add a New Beer
-                    </button>
-                    <!-- <form id="addBeerBtn" class="list-group-item"  type="submit">Add a New Beer</form> -->
-                </div>
+                    <form href="#" class="list-group-item" id="addBeerBtn" type="submit">Add a New Beer</form>
                 </div>
             </div>
         </div>
@@ -76,7 +74,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <form action="/findNew" method="POST" id="beerModalForm">
+                <form action="/findNew" method="POST">
                     <input type="text" name="matchName" placeholder="Enter a beer to match"></input>
                     <button type="submit" class="btn btn-info small" id="getTheDamThing">Search!</button>
                 </form>
@@ -96,40 +94,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add a beer to the data base</h2>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
             </div>
             {{!-- Entry Form Goes HERE --}}
-            <form action="/addBeer" method="POST" id="newBeerObj" class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="NAME"></input>
-                </div>
-                <div class="form-group">
-                    <input type="newIbu" class="form-control" name="hoppieness" placeholder="IBU"></input>
-                </div>
-                <div class="form-group">
-                    <input type="newColor" class="form-control" name="color" placeholder="COLOR"></input>
-                </div>
-                <div class="form-group">
-                    <input type="newSmell" class="form-control" name="smell" placeholder="SMELL"></input>
-                </div>
-                <div class="form-group">
-                    <input type="newType" class="form-control" name="style" placeholder="TYPE"></input>
-                </div>
-                <div class="form-group">
-                    <input type="newFeel" class="form-control" name="feel" placeholder="TEXTURE"></input>
-                </div>
-
-
-<!--                  <div class="form-group">
+            <form class="form-inline">
+ 
+                 <div class="form-group">
                     <label for="newBeerName"></label>
                     <input type="text" class="form-control" id="newBrName" placeholder="NAME">
                  </div>
                 <div class="form-group">
                     <label for="newBeerIbu"></label>
-                    <input type="newIbu" class="form-control" id="newBeerIbu" placeholder="IBU">
+                    <input type="newIbu" class="form-control" id="newBeerIbu" placeholder="IBU 1-100">
                 </div>
                 <div class="form-group">
                     <label for="newBeerColor"></label>
-                    <input type="newColor" class="form-control" id="newBeerColor" placeholder="COLOR">
+                    <input type="newColor" class="form-control" id="newBeerColor" placeholder="COLOR 1-10">
                 </div>
                 <div class="form-group">
                     <label for="newBeerSmell"></label>
@@ -144,8 +124,8 @@
                     <input type="newFeel" class="form-control" id="newBeerFeel" placeholder="TEXTURE">
                 </div>
                 <br>
- -->            <br>
-                <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
+                <br>
+                    <button type="submit" class="btn btn-success" id="addNewBeerBtn" >Submit</button>
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -154,41 +134,112 @@
     </div>
 </div>
 
+<!-- Modal to show the details of the selected beer  -->
+<div class="modal fade" id="showThisBeerModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"> Details about this Beer </h3>
+            </div>
+            <div class="bs-linebreak">
+
+                    <p>       Name: <b id="bName">      </b> </p>
+                    <p>      Style: <b id="bStyle">     </b> </p>
+                    <p>       Feel: <b id="bFeel">      </b> </p>
+                    <p> Hoppieness: <b id="bHoppieness"></b> </p>
+                    <p>      Smell: <b id="bSmell">     </b> </p>
+                    <p>      Color: <b id="bColor">     </b> </p>
+            </div>
+            <div class="modal-footer">
+                <button href="#" class="btn btn-success" data-whatever="{{json this}}" id="deleteBeerBtn" >Delete</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
 
-// $("#addBeerBtn").on("click", function() {
-//     $("#beerAddModal").modal("toggle", function(){
-//         $("beerAddModal").modal('show')
-//     })
-// });
+Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+});
 
-// $('#MatchBeerBtn').on('click', function() {
-//     $("#beerFinderModal").modal('toggle', function(){
-//         $("#beerFinderModal").modal('show')
-//     })
-// });
+var beerToDeleteID = 0;
+
+// handle the delete beer button
+$("#deleteBeerBtn").on("click", function(){
+    console.log("got the delete beer click");
+//    e.preventDefault();
+    $("#showThisBeerModal").modal('toggle');
+    console.log( beerToDeleteID );
+    $.post("/deleteBeer", beerToDeleteID)
+});
 
 
-// $("#addNewBeerBtn").on("click", function(e){
-//     e.preventDefault();
-//     console.log("we're in the add beer click");
-//     $("#beerAddModal").modal("toggle", function(){
-//         $("beerAddModal").modal('hide')
-//     });
+$("#addBeerBtn").on("click", function(e) {
+    e.preventDefault();
+    $("#beerAddModal").modal('toggle');
+});
 
-//     var newBeerObj = {
-//         name: $("#newBrName").val().trim(),
-//         hoppieness: $("#newBeerIbu").val().trim(),
-//         color: $("#newBeerColor").val().trim(),
-//         style: $("#newBeerType").val().trim(),
-//         smell: $("#newBeerSmell").val().trim(),
-//         feel: $("#newBeerFeel").val().trim()
-//         };
 
-//     console.log(newBeerObj);
+$('#MatchBeerBtn').on('click', function(e) {
+    e.preventDefault();
+    $("#beerFinderModal").modal('toggle')
+});
 
-//     $.post("/addBeer", newBeerObj);
-// });
+
+// code to start the show beer details modal
+$('#showThisBeerModal').on('show.bs.modal', function (stuff) {
+    var button = $(stuff.relatedTarget); // Button that triggered the modal
+    var beerDetails = JSON.parse(button[0].dataset.whatever); // Extract info from data-* attributes
+    beerToDeleteID = beerDetails;
+    console.log(beerDetails);
+    var beerName = beerDetails.name;
+    var beerColor = beerDetails.color;
+    var beerStyle = beerDetails.style;
+    var beerFeel = beerDetails.feel;
+    var beerHoppieness = beerDetails.hoppieness;
+    var beerSmell = beerDetails.smell;
+    console.log(beerName);
+
+    var modal = $(this);
+    modal.find('#bName').text(beerName);
+    modal.find('#bStyle').text(beerStyle);
+    modal.find('#bFeel').text(beerFeel);
+    modal.find('#bHoppieness').text(beerHoppieness);
+    modal.find('#bSmell').text(beerSmell);
+    modal.find('#bColor').text(beerColor);
+});
+
+
+
+$("#addNewBeerBtn").on("click", function(){
+//    e.preventDefault();
+    $("#beerAddModal").modal('toggle');
+    console.log("we're in the add beer click");
+    var newBeer = $("#newBrName").val().trim();
+    var newIbu = $("#newBeerIbu").val().trim();
+    var newColor = $("#newBeerColor").val().trim();
+    var newType = $("#newBeerType").val().trim();
+    var newSmell = $("#newBeerSmell").val().trim();
+    var newFeel = $("#newBeerFeel").val().trim();
+
+    var newBeerObj = {
+        name: newBeer,
+        hoppieness: newIbu,
+        color: newColor,
+        style: newType,
+        smell: newSmell,
+        feel: newFeel };
+
+    console.log(newBeerObj);
+
+    var sendthis = JSON.stringify(newBeerObj);
+
+    $.get("/addBeer", newBeerObj);
+});
 
 
 </script>

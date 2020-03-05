@@ -4,20 +4,19 @@
     "password": "RutBud17",
     "database": "beer_db",
     "host":     "localhost",
-    "dialect":  "mysql",
-    "operatorsAliases": false
+    "dialect":  "mysql"
   },
   "test": {
-    "username": "f5m9sjw9brdp30d7",
-    "password": "h5ox0157igelkcx4",
-    "database": "i75u79mizl9ii1xq",
-    "host":     "fugfonv8odxxolj8.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host":     "",
     "dialect":  "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "null",
-    "database": "database_production",
+    "username": "scandrews",
+    "password": "RutBud17",
+    "database": "beer_db",
     "host":     "localhost",
     "dialect":  "mysql"
   }
