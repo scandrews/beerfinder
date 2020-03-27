@@ -6,7 +6,6 @@ module.exports = (passport, user) => {
   const LocalStrategy = require('passport-local').Strategy;
 
   passport.use('local-signup', new LocalStrategy(
-
     {
       usernameField: 'email',
       passwordField: 'password',
@@ -16,37 +15,33 @@ module.exports = (passport, user) => {
     ((req, email, password, done) => {
       const generateHash = password => bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
 
-
       User.findOne({
-        where: {
-          email
-        },
-      }).then((user) => {
-        if (user) {
-          return done(null, false, {
-            message: 'That email is already taken',
+        where: { email },
+        }).then((user) => {
+          if (user) {
+            return done(null, false, {
+              message: 'That email is already taken',
+            });
+          }
+
+          const userPassword = generateHash(password);
+          const data =
+            {
+              email,
+              password: userPassword,
+              firstname: req.body.firstname,
+              lastname: req.body.lastname,
+            };
+
+          User.create(data).then((newUser, created) => {
+            if (!newUser) {
+              return done(null, false);
+            }
+            if (newUser) {
+              return done(null, newUser);
+            }
           });
-        }
-
-        const userPassword = generateHash(password);
-        const data =
-
-          {
-            email,
-            password: userPassword,
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-          };
-
-        User.create(data).then((newUser, created) => {
-          if (!newUser) {
-            return done(null, false);
-          }
-          if (newUser) {
-            return done(null, newUser);
-          }
         });
-      });
     }),
 
     //  serialize
@@ -55,7 +50,9 @@ module.exports = (passport, user) => {
     }),
     // deserialize user
     passport.deserializeUser((id, done) => {
-      User.findById(id).then((user) => {
+      console.log("in deserialize user");
+      console.log(id);
+       User.findByPk(id).then((user) => {
         if (user) {
           done(null, user.get());
         } else {
@@ -76,6 +73,7 @@ module.exports = (passport, user) => {
 
       ((req, email, password, done) => {
         const User = user;
+        console.log("in local sing IN");
         const isValidPassword = (userpass, password) => bCrypt.compareSync(password, userpass);
 
         User.findOne({

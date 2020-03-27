@@ -33,23 +33,9 @@
 
                 <label for="password"></label>
                 <input name="password" type="password" placeholder="Password" />
-                
-            <!--<input class="btn" type="submit" value="Sign In" />
-            </form>
-              -->
 
                 <input class="btn btn_login" type="submit" value="Sign In" /> 
               </form>
-
-          <!-- this is the section that renders correctly but doesn't access the db -->
-          <!-- <form class=form-signin> -->
-  <!--         <form id="signin" name="signin" method="post" action="signin">
-              <input type="email" placeholder="Email" input type="submit"/>
-              <input type="password" placeholder="Password" />
-              <p class="forgot"><a href="https://codepen.io/tnmaysharma/full/KzLGOw/"><font color= "white">Forgot Password?</font></a></p>
-              <button class="btn_login" type="submit" >LOGIN</button>
-          </form> -->
-          <!-- end section that works but doesn't db -->
 
         </div>
         <div class="cont_form_sign_up">
@@ -109,6 +95,7 @@
   };
 
   function cambiar_sign_up(at) {
+    console.log("in camb sign up");
     document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_sign_up";
     document.querySelector('.cont_form_sign_up').style.display = "block";
     document.querySelector('.cont_form_login').style.opacity = "0";
@@ -121,6 +108,7 @@
   };    
 
   function ocultar_login_sign_up() {
+    console.log("in oc login signup");
     document.querySelector('.cont_forms').className = "cont_forms";  
     document.querySelector('.cont_form_sign_up').style.opacity = "0";               
     document.querySelector('.cont_form_login').style.opacity = "0"; 
