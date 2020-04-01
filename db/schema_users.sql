@@ -11,5 +11,8 @@ CREATE TABLE users(
 	email varchar(255),
 	password varchar(255),
 	last_login datetime,
-	status enum('active','inactive')
+	status enum('active','inactive'),
+	createdAt TIMESTAMP NOT null,
+	updatedAt time,
+	PRIMARY KEY (id)
 );
