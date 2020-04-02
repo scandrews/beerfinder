@@ -11,7 +11,7 @@ const path = require('path');
 
 const Handlebars = require ('handlebars');
 
-const PORT = 8000;
+var PORT = process.env.PORT || 8000;
 
 // for BodyParser
 app.use(
